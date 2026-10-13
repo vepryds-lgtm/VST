@@ -1,0 +1,14 @@
+# Build output
+build/
+build_*/
+build_log.txt
+
+# JUCE is fetched separately (git clone --branch 8.0.8, see BUILD.md)
+third_party/JUCE/
+
+# Editor / OS
+.vs/
+.vscode/
+*.user
+Thumbs.db
+.DS_Store

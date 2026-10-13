@@ -1,0 +1,18 @@
+name: Windows VST3
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - run: git clone --depth 1 --branch 8.0.8 https://github.com/juce-framework/JUCE.git third_party/JUCE
+      - run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DAURA_BUILD_TESTS=OFF
+      - run: cmake --build build --config Release --target AuraSynth_VST3 AuraDrums_VST3 --parallel
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AuraSynth-vst3-windows
+          path: build/AuraSynth_artefacts/Release/VST3/AuraSynth.vst3
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AuraDrums-vst3-windows
+          path: build/AuraDrums_artefacts/Release/VST3/AuraDrums.vst3
