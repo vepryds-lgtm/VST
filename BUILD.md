@@ -2,7 +2,7 @@
 
 > **Ærlig status:** Koden er kompileret og testet på **Linux** (JUCE 8.0.8, GCC/Ninja): motor, parametre, presets,
 > MIDI, state save/restore og GUI-rendering er verificeret med en automatisk testsuite (`AuraRenderTest`, ~300 checks, også kørt med AddressSanitizer + UBSan).
-> **Windows-bygget og plugin-scanning i FL Studio er IKKE testet** – det kræver en Windows-maskine.
+> **Windows-bygget virker** (Visual Studio 2022, x64 og ARM64, via `tools\build_local.bat`). Testsuiten er ikke kørt på Windows.
 > Lydene er målt og loudness-kalibreret, men ikke "lyttet til" af et menneske.
 > Det samme gælder **AuraDrums** (se afsnit 9): 72 syntetiserede lyde, målt og balanceret, men ikke lyttet til; ikke prøvet i FL Studio.
 
@@ -16,23 +16,32 @@ Dobbeltklik på **`INSTALL_AuraSynth.bat`** (pak zip-filen ud først). Den insta
 4. JUCE 8.0.8 hentes af scriptet (eller manuelt, se nedenfor).
 
 ## 2. Byg
-Åbn *x64 Native Tools Command Prompt for VS 2022* i projektmappen og kør:
+Kør fra projektmappen (en almindelig kommandoprompt er nok):
 
-    tools\build_windows.bat
+    tools\build_local.bat
 
-Eller manuelt:
+Scriptet kører selv CMake (konfiguration + byg) for både x64 og ARM64 – du skal ikke køre `cmake` i hånden.
+Byggefilerne lægges i `%USERPROFILE%\AuraSynth-build`, **uden for projektmappen**, fordi projektet ligger i OneDrive
+og ca. 1 GB objektfiler ellers ville blive synkroniseret. Kør derfor ikke `cmake -B build` inde i projektmappen.
+
+Resultat: `%USERPROFILE%\AuraSynth-build\<x64|ARM64>\AuraSynth_artefacts\Release\VST3\AuraSynth.vst3` og tilsvarende under `AuraDrums_artefacts`.
+
+Manuelt (én arkitektur), hvis scriptet ikke kan bruges:
 
     git clone --depth 1 --branch 8.0.8 https://github.com/juce-framework/JUCE.git third_party\JUCE
-    cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DAURA_BUILD_TESTS=OFF
-    cmake --build build --config Release --target AuraSynth_VST3 AuraDrums_VST3 --parallel
+    cmake -S . -B "%USERPROFILE%\AuraSynth-build\x64" -G "Visual Studio 17 2022" -A x64 -DAURA_BUILD_TESTS=OFF
+    cmake --build "%USERPROFILE%\AuraSynth-build\x64" --config Release --target AuraSynth_VST3 AuraDrums_VST3 --parallel
 
-Resultat: `build\AuraSynth_artefacts\Release\VST3\AuraSynth.vst3` og `build\AuraDrums_artefacts\Release\VST3\AuraDrums.vst3`
+`tools\build_windows.bat` er det ældre script, som kun bygger x64 og lægger output i `build\` i projektmappen – brug det kun, hvis projektet ikke ligger i OneDrive.
 
 Uden Visual Studio-GUI: ingen krav – kun kommandolinjen ovenfor.
 Ingen Windows-maskine? Push mappen til GitHub; `.github/workflows/windows.yml` bygger VST3'en og lægger den som download-artifact.
 
 ## 3. Installér
-Kopiér hele mapperne `AuraSynth.vst3` og `AuraDrums.vst3` til `C:\Program Files\Common Files\VST3\` (kræver administrator).
+Luk FL Studio, højreklik på `tools\install_vst3.bat` og vælg **Kør som administrator**. Scriptet kopierer begge plugins
+(x64 + ARM64) fra `%USERPROFILE%\AuraSynth-build` til `C:\Program Files\Common Files\VST3\`.
+
+Manuelt: kopiér hele mapperne `AuraSynth.vst3` og `AuraDrums.vst3` dertil (kræver administrator).
 Alternativt byg som administrator med `-DAURA_COPY_AFTER_BUILD=ON`.
 
 ## 4. FL Studio 26
