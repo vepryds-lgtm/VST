@@ -1,400 +1,577 @@
-<title>Dropshipping til Danmark</title>
+<title>Ecom-modellen</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
-/* Layout: one reading column; product grid; persona grid; numbered how-to steps (a real sequence); per-order profit calculator. */
+/* Layout: sticky section nav; one reading column of numbered parts (the order is the real order of work);
+   three working tools (product score, start budget, monthly profit) and a saved 90-day checklist. */
 :root {
-  --bg: #f4f5f7;
+  --bg: #f3f4f6;
   --surface: #ffffff;
-  --fg: #16181d;
-  --muted: #5b6170;
-  --line: #dde0e6;
+  --fg: #15171c;
+  --muted: #5a6070;
+  --line: #dcdfe5;
   --dk: #c8102e;
-  --dk-soft: #fbe7ea;
-  --us: #1f3a6b;
-  --us-soft: #e6ecf6;
-  --good: #1d7a46;
-  --good-soft: #e3f3ea;
-  --warn: #9a5b00;
-  --warn-soft: #fbf0dc;
+  --dk-soft: #fbe8eb;
+  --good: #1b7a45;
+  --good-soft: #e2f3e9;
+  --warn: #965800;
+  --warn-soft: #fbf0db;
   --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #111318; --surface: #1a1d24; --fg: #eceef2; --muted: #a2a8b6; --line: #2c303a;
-    --dk: #ff5a6e; --dk-soft: #3a1a20; --us: #8fb0ea; --us-soft: #1c2638;
-    --good: #5fd08f; --good-soft: #15291e; --warn: #f0b45a; --warn-soft: #2e2414;
+    --bg: #101217; --surface: #191c23; --fg: #eceef2; --muted: #a1a7b5; --line: #2b2f39;
+    --dk: #ff5c70; --dk-soft: #3a1a21; --good: #5fd08f; --good-soft: #142a1e; --warn: #f0b45a; --warn-soft: #2e2414;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #111318; --surface: #1a1d24; --fg: #eceef2; --muted: #a2a8b6; --line: #2c303a;
-  --dk: #ff5a6e; --dk-soft: #3a1a20; --us: #8fb0ea; --us-soft: #1c2638;
-  --good: #5fd08f; --good-soft: #15291e; --warn: #f0b45a; --warn-soft: #2e2414;
+  --bg: #101217; --surface: #191c23; --fg: #eceef2; --muted: #a1a7b5; --line: #2b2f39;
+  --dk: #ff5c70; --dk-soft: #3a1a21; --good: #5fd08f; --good-soft: #142a1e; --warn: #f0b45a; --warn-soft: #2e2414;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
+html { scroll-padding-top: 72px; }
 body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.6; }
-.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 40px 64px; display: grid; gap: 64px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+.nav-inner { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 10px; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+.nav a { flex: none; font: 600 0.82rem var(--body); color: var(--muted); text-decoration: none; padding: 6px 10px; border-radius: 4px; white-space: nowrap; }
+.nav a:hover { background: var(--bg); color: var(--fg); }
+.nav a b { font-family: var(--mono); color: var(--dk); margin-right: 4px; font-weight: 600; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 40px 72px; display: grid; gap: 72px; }
 h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
-h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 800; letter-spacing: -0.02em; }
-h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; }
-h3 { font-size: 1.12rem; font-weight: 700; }
+h1 { font-size: clamp(2.2rem, 5.5vw, 3.6rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.5rem, 3vw, 2.05rem); font-weight: 800; }
+h3 { font-size: 1.1rem; font-weight: 700; }
 p { margin: 0; max-width: 68ch; }
 a { color: var(--dk); }
-a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--dk); outline-offset: 2px; }
-.eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+a:focus-visible, button:focus-visible, input:focus-visible, label:focus-within { outline: 3px solid var(--dk); outline-offset: 2px; }
+ul { margin: 0; padding-left: 18px; }
+.eyebrow { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 .section { display: grid; gap: 20px; }
+.section > .head { display: grid; gap: 10px; }
 .lede { font-size: 1.15rem; color: var(--muted); }
-.note { font-size: 0.85rem; color: var(--muted); }
+.note { font-size: 0.86rem; color: var(--muted); }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 20px; min-width: 0; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.cols > * { min-width: 0; }
+.tag { display: inline-block; font-family: var(--mono); font-size: 0.7rem; padding: 2px 8px; border-radius: 999px; white-space: nowrap; background: var(--dk-soft); color: var(--dk); }
+.tag.good { background: var(--good-soft); color: var(--good); }
+.tag.warn { background: var(--warn-soft); color: var(--warn); }
+code { font-family: var(--mono); font-size: 0.85em; background: var(--dk-soft); padding: 1px 6px; border-radius: 4px; overflow-wrap: anywhere; }
+.num { font-variant-numeric: tabular-nums; font-family: var(--mono); }
 
-.hero { display: grid; gap: 18px; border-bottom: 1px solid var(--line); padding-block-end: 40px; }
+/* hero */
+.hero { display: grid; gap: 18px; padding-block-end: 8px; }
 .flagbar { display: flex; height: 10px; width: 120px; border-radius: 2px; overflow: hidden; }
 .flagbar span:nth-child(1) { flex: 3; background: var(--dk); }
 .flagbar span:nth-child(2) { flex: 1; background: var(--bg); }
 .flagbar span:nth-child(3) { flex: 6; background: var(--dk); }
-.verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 8px; }
-.verdict div { padding: 16px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; min-width: 0; }
-.verdict b { display: block; font-family: var(--display); font-size: 1.05rem; margin-bottom: 4px; }
+.honest { border-left: 4px solid var(--warn); background: var(--warn-soft); padding: 14px 18px; border-radius: 0 6px 6px 0; max-width: 78ch; }
 
-.tag { display: inline-block; font-family: var(--mono); font-size: 0.7rem; padding: 2px 8px; border-radius: 999px; background: var(--us-soft); color: var(--us); white-space: nowrap; }
-.tag.dk { background: var(--dk-soft); color: var(--dk); }
-.tag.good { background: var(--good-soft); color: var(--good); }
-.tag.warn { background: var(--warn-soft); color: var(--warn); }
+/* flow */
+.flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.flow div { padding: 16px; border-right: 1px solid var(--line); display: grid; gap: 4px; align-content: start; position: relative; }
+.flow div:last-child { border-right: 0; }
+.flow b { font-family: var(--display); font-size: 1rem; }
+.flow span { font-size: 0.85rem; color: var(--muted); }
+.flow i { font-style: normal; font-family: var(--mono); font-size: 0.72rem; color: var(--dk); }
 
-.products { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-.product { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 20px; display: grid; gap: 10px; align-content: start; min-width: 0; }
-.product .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-.product .price { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-.product dl { margin: 0; display: grid; gap: 6px; font-size: 0.92rem; }
-.product dt { font-weight: 600; font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
-.product dd { margin: 0 0 4px; }
-.product .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+/* compare */
+.tablebox { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 0.93rem; }
+th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+td.win { color: var(--good); font-weight: 600; }
 
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-.persona { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 20px; display: grid; gap: 10px; align-content: start; min-width: 0; }
-.persona .size { font-family: var(--mono); font-size: 0.82rem; color: var(--dk); }
-.persona ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 0.93rem; }
-.persona .tag { justify-self: start; }
+/* rules */
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+.rule { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 18px; display: grid; gap: 6px; align-content: start; }
+.rule .big { font-family: var(--display); font-weight: 800; font-size: 1.9rem; color: var(--dk); line-height: 1.1; font-variant-numeric: tabular-nums; }
 
-ol.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: s; }
-ol.steps li { counter-increment: s; display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 18px 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
-ol.steps li::before { content: counter(s); font-family: var(--display); font-weight: 800; font-size: 1.6rem; color: var(--dk); line-height: 1; }
-ol.steps li > div { display: grid; gap: 6px; min-width: 0; }
-ol.steps .how { font-size: 0.92rem; color: var(--muted); }
-code { font-family: var(--mono); font-size: 0.85em; background: var(--dk-soft); color: var(--fg); padding: 1px 6px; border-radius: 4px; overflow-wrap: anywhere; }
-
-.ads { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-.ad { border: 1px dashed var(--line); border-radius: 6px; padding: 18px; background: var(--surface); display: grid; gap: 8px; align-content: start; }
-.ad .hl { font-family: var(--display); font-weight: 700; font-size: 1.05rem; }
-.ad button { justify-self: start; font: 600 0.8rem var(--body); border: 1px solid var(--line); background: var(--bg); color: var(--fg); padding: 6px 12px; border-radius: 4px; cursor: pointer; }
-
-.calc { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 24px; }
-.calc label { display: grid; gap: 4px; font-size: 0.9rem; }
-.calc .row { display: flex; justify-content: space-between; gap: 8px; }
-.calc output { font-family: var(--mono); font-variant-numeric: tabular-nums; }
-.calc input[type=range] { width: 100%; accent-color: var(--dk); }
-.calc .inputs { display: grid; gap: 16px; }
+/* tools */
+.tool { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 24px; }
+.tool > * { min-width: 0; }
+.inputs { display: grid; gap: 16px; align-content: start; }
+.inputs label { display: grid; gap: 4px; font-size: 0.9rem; }
+.inputs .row { display: flex; justify-content: space-between; gap: 8px; }
+.inputs output { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+input[type=range] { width: 100%; accent-color: var(--dk); }
+input[type=text], input[type=number] { font: 500 0.95rem var(--body); padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--fg); width: 100%; }
+input[type=checkbox] { accent-color: var(--dk); width: 18px; height: 18px; flex: none; margin-top: 3px; }
 .result { display: grid; gap: 12px; align-content: start; }
 .result .big { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 5vw, 2.8rem); font-variant-numeric: tabular-nums; line-height: 1.1; }
-.result .big.pos { color: var(--good); }
-.result .big.neg { color: var(--dk); }
+.pos { color: var(--good); } .neg { color: var(--dk); }
 .result dl { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; margin: 0; font-size: 0.92rem; }
-.result dd { margin: 0; font-family: var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
 .result dt { color: var(--muted); }
-.result .total { border-top: 1px solid var(--line); padding-top: 6px; font-weight: 600; color: var(--fg); }
+.result dd { margin: 0; font-family: var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
+.result .sum { border-top: 1px solid var(--line); padding-top: 6px; font-weight: 600; color: var(--fg); }
+.verdict { padding: 12px 14px; border-radius: 6px; font-size: 0.92rem; }
+.verdict.good { background: var(--good-soft); color: var(--good); }
+.verdict.warn { background: var(--warn-soft); color: var(--warn); }
+.verdict.bad { background: var(--dk-soft); color: var(--dk); }
 
-.check { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 8px 24px; margin: 0; padding: 0; list-style: none; }
-.check li { padding: 10px 0 10px 28px; border-bottom: 1px solid var(--line); position: relative; }
-.check li::before { content: ""; position: absolute; left: 0; top: 15px; width: 14px; height: 14px; border: 2px solid var(--dk); border-radius: 3px; }
+.crit { display: grid; gap: 4px; }
+.crit label { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 0.93rem; cursor: pointer; }
+.crit label small { display: block; color: var(--muted); font-size: 0.82rem; }
+
+.budget { display: grid; grid-template-columns: 1fr 120px; gap: 10px 14px; align-items: center; font-size: 0.92rem; }
+.budget input { text-align: right; font-family: var(--mono); }
+
+/* categories */
+.cat ul { display: grid; gap: 4px; font-size: 0.93rem; }
+.cat.yes h3 { color: var(--good); } .cat.no h3 { color: var(--dk); }
+
+/* steps */
+ol.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+ol.steps li { counter-increment: s; display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 16px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+ol.steps li::before { content: counter(s); font-family: var(--display); font-weight: 800; font-size: 1.5rem; color: var(--dk); line-height: 1; }
+ol.steps li > div { display: grid; gap: 4px; min-width: 0; }
+ol.steps .how { font-size: 0.92rem; color: var(--muted); }
+
+/* legal table */
+.legal td:first-child { font-weight: 600; white-space: nowrap; }
+.legal td:nth-child(3) { white-space: nowrap; }
+
+/* stack */
+.stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.stack div { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; display: grid; gap: 2px; align-content: start; }
+.stack b { font-family: var(--display); }
+.stack span { font-size: 0.86rem; color: var(--muted); }
+.stack i { font-style: normal; font-family: var(--mono); font-size: 0.72rem; color: var(--dk); text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* plan */
+.progress { height: 8px; background: var(--line); border-radius: 999px; overflow: hidden; }
+.progress div { height: 100%; background: var(--good); width: 0; }
+@media (prefers-reduced-motion: no-preference) { .progress div { transition: width .3s; } }
+.phases { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.phase { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 18px; display: grid; gap: 8px; align-content: start; }
+.phase .when { font-family: var(--mono); font-size: 0.75rem; color: var(--dk); letter-spacing: 0.08em; text-transform: uppercase; }
+.phase label { display: flex; gap: 10px; align-items: flex-start; font-size: 0.92rem; padding: 5px 0; cursor: pointer; }
+.phase input:checked + span { color: var(--muted); text-decoration: line-through; }
+.reset { justify-self: start; font: 600 0.8rem var(--body); border: 1px solid var(--line); background: var(--surface); color: var(--muted); padding: 6px 12px; border-radius: 4px; cursor: pointer; }
 
 .sources { font-size: 0.85rem; color: var(--muted); display: grid; gap: 6px; }
-.sources ul { margin: 0; padding-left: 18px; }
-@media (prefers-reduced-motion: no-preference) { .ad button { transition: background .15s; } }
 </style>
+
+<nav class="nav" aria-label="Afsnit">
+  <div class="nav-inner">
+    <a href="#model"><b>1</b>Modellen</a>
+    <a href="#tal"><b>2</b>Profitreglerne</a>
+    <a href="#produkt"><b>3</b>Produkt</a>
+    <a href="#indkob"><b>4</b>Indkøb</a>
+    <a href="#virksomhed"><b>5</b>Virksomhed &amp; lov</a>
+    <a href="#webshop"><b>6</b>Webshop</a>
+    <a href="#marketing"><b>7</b>Marketing</a>
+    <a href="#profit"><b>8</b>Profit</a>
+    <a href="#plan"><b>9</b>90 dage</a>
+    <a href="#risiko"><b>10</b>Sikkerhed</a>
+  </div>
+</nav>
 
 <main class="wrap">
 
   <header class="hero">
     <div class="flagbar" aria-hidden="true"><span></span><span></span><span></span></div>
-    <span class="eyebrow">Dropshipping · Produktplan · November 2026</span>
-    <h1>Find vinderne i USA. Sælg dem i Danmark.</h1>
-    <p class="lede">De produktkategorier der trender i USA lige nu, hvilke der passer til danskerne, og hvordan du trin for trin finder en dansk målgruppe, hvor du ikke kæmper mod tusindvis af amerikanske butikker.</p>
-    <div class="verdict">
-      <div><b>USA er overfyldt</b>Når et produkt går viralt i USA, kopierer tusindvis af butikker det på få uger, og annoncepriserne stiger.</div>
-      <div><b>Danmark er overskueligt</b>91 % af danskerne mellem 16 og 74 handler online, og næsten halvdelen af købene sker på mobilen. Markedet er lille nok til, at du kan nå mange med et lille budget.</div>
-      <div><b>Din fordel er tillid</b>Danskerne køber hos butikker de stoler på: dansk tekst, MobilePay, hurtig levering og ærlige leveringstider. Det er der, du slår Temu og Shein.</div>
-    </div>
+    <span class="eyebrow">Komplet model · Eget brand · Dansk marked · November 2026</span>
+    <h1>Byg en dansk webshop med dit eget brand og god profit.</h1>
+    <p class="lede">Hele vejen fra produktidé til første overskud: hvilket produkt, hvor du køber ind, hvad loven kræver, hvordan du sætter shoppen op, hvordan du får kunder, og hvordan du regner ud, om det tjener penge, før du bruger dem.</p>
+    <p class="honest"><strong>Ærligt:</strong> Ingen model kan garantere profit. Det her er bygget, så du tester billigt først og kun bruger flere penge, når tallene viser, at det virker. Følg stop-reglerne i afsnit 10, så kan du ikke tabe mere, end du har besluttet på forhånd.</p>
   </header>
 
-  <section class="section" id="produkter">
-    <span class="eyebrow">Del 1 · Produkterne</span>
-    <h2>8 amerikanske trends der kan virke i Danmark</h2>
-    <p>Kategorierne kommer fra 2026-lister over trendende dropshipping-produkter i USA. Under hvert produkt står, hvorfor det passer (eller ikke passer) til danskere. Priserne er eksempler, så tjek din leverandør.</p>
-    <div class="products">
-
-      <article class="product">
-        <div class="top"><h3>Kæledyr: hundesenge og plejeudstyr</h3><span class="price">299–699 kr.</span></div>
-        <div class="tags"><span class="tag good">Stærk i DK</span><span class="tag">Stabil trend i USA</span></div>
-        <dl>
-          <dt>USA</dt><dd>Ortopædiske hundesenge, pelsplejeværktøj, seler og snore nævnes igen og igen.</dd>
-          <dt>Danmark</dt><dd>Hundeejere er aktive i danske Facebook-grupper per race. Tunge senge betyder dyr fragt, så vælg en EU-leverandør.</dd>
-        </dl>
-      </article>
-
-      <article class="product">
-        <div class="top"><h3>Cykeltilbehør til vinteren</h3><span class="price">149–449 kr.</span></div>
-        <div class="tags"><span class="tag good">Unik for DK</span><span class="tag dk">Lav konkurrence</span></div>
-        <dl>
-          <dt>USA</dt><dd>Små "portable tech"-gadgets og lygter sælger godt.</dd>
-          <dt>Danmark</dt><dd>Danskerne cykler hele året. Genopladelige lygter, regnslag, styrhandsker og telefonholdere passer perfekt. Amerikanerne sælger ikke til den målgruppe.</dd>
-        </dl>
-      </article>
-
-      <article class="product">
-        <div class="top"><h3>Hygge-lys og stemningsbelysning</h3><span class="price">199–499 kr.</span></div>
-        <div class="tags"><span class="tag good">Stærk i DK</span><span class="tag">Hjem &amp; indretning</span></div>
-        <dl>
-          <dt>USA</dt><dd>Hjemmeindretning og smart home er blandt de mest nævnte kategorier.</dd>
-          <dt>Danmark</dt><dd>Mørke vintre betyder efterspørgsel på LED-stearinlys, solnedgangslamper og vækkeurs-lys fra oktober til februar. Kræver CE-mærkning.</dd>
-        </dl>
-      </article>
-
-      <article class="product">
-        <div class="top"><h3>Søvnprodukter</h3><span class="price">149–599 kr.</span></div>
-        <div class="tags"><span class="tag good">God i DK</span><span class="tag">Trend i USA</span></div>
-        <dl>
-          <dt>USA</dt><dd>Produkter der forbedrer søvnen er nævnt som en voksende kategori.</dd>
-          <dt>Danmark</dt><dd>Søvnmasker, kølende hovedpuder og støjmaskiner. Let at sende og nemt at forklare i en kort video.</dd>
-        </dl>
-      </article>
-
-      <article class="product">
-        <div class="top"><h3>Hårstyling uden ledning</h3><span class="price">399–899 kr.</span></div>
-        <div class="tags"><span class="tag">Trend i USA</span><span class="tag warn">Kræver CE</span></div>
-        <dl>
-          <dt>USA</dt><dd>Trådløse glattejern og krøllejern er på flere 2026-lister.</dd>
-          <dt>Danmark</dt><dd>Virker på TikTok og Instagram blandt kvinder 18–34. Batterier og elektronik skal være CE-mærkede, og nogle fragtfirmaer begrænser lithium-batterier.</dd>
-        </dl>
-      </article>
-
-      <article class="product">
-        <div class="top"><h3>Wellness hjemme</h3><span class="price">299–999 kr.</span></div>
-        <div class="tags"><span class="tag">Trend i USA</span><span class="tag warn">Pas på påstande</span></div>
-        <dl>
-          <dt>USA</dt><dd>Rødlysmasker, massagepistoler og spa-gadgets, fordi folk sparer penge på spa og fitness.</dd>
-          <dt>Danmark</dt><dd>Efterspørgslen findes. Du må ikke love helbredseffekter, som du ikke kan dokumentere, så skriv om oplevelsen, ikke om behandling.</dd>
-        </dl>
-      </article>
-
-      <article class="product">
-        <div class="top"><h3>Bærbar blender og køkkengadgets</h3><span class="price">199–399 kr.</span></div>
-        <div class="tags"><span class="tag">Trend i USA</span><span class="tag warn">Mættet</span></div>
-        <dl>
-          <dt>USA</dt><dd>Mini-blendere og små køkkengadgets er stadig populære.</dd>
-          <dt>Danmark</dt><dd>Fås billigt på Temu og i danske kæder. Kun værd at sælge med en dansk vinkel, fx et bundle med danske opskrifter.</dd>
-        </dl>
-      </article>
-
-      <article class="product">
-        <div class="top"><h3>Galakse-projektorer og "TikTok-gadgets"</h3><span class="price">Undgå</span></div>
-        <div class="tags"><span class="tag warn">Udbrændt</span></div>
-        <dl>
-          <dt>USA</dt><dd>Var store vindere for et par år siden.</dd>
-          <dt>Danmark</dt><dd>Alle har set dem, og de koster næsten ingenting på Temu. Du kan ikke vinde på pris. Spring over.</dd>
-        </dl>
-      </article>
-
+  <!-- 1 -->
+  <section class="section" id="model">
+    <div class="head">
+      <span class="eyebrow">Del 1 · Forretningsmodellen</span>
+      <h2>Eget brand, eget lager, dansk webshop</h2>
+      <p>Du køber et produkt direkte fra fabrikken med dit eget logo (det kaldes private label), har det på lager i Danmark og sælger det i din egen webshop. Det giver langt højere margin end dropshipping, levering på 1–2 dage og et brand, kunderne køber igen fra.</p>
     </div>
-    <p class="note">Listerne kommer mest fra firmaer der sælger dropshipping-værktøjer, så de er ikke uafhængige salgstal. Brug dem som idéer, og test efterspørgslen i Danmark med trinnene nedenfor, før du køber annoncer.</p>
-  </section>
-
-  <section class="section" id="maalgrupper">
-    <span class="eyebrow">Del 2 · Kunderne</span>
-    <h2>Fem danske målgrupper</h2>
-    <p>Vælg én målgruppe og ét produkt at starte med. En butik til "alle" taber til Temu.</p>
-    <div class="grid">
-      <article class="persona">
-        <span class="tag dk">A · Start her</span>
-        <h3>Hundeejere, 25–55</h3>
-        <span class="size">Facebook-grupper per hunderace</span>
-        <ul>
-          <li>Bruger gerne penge på hunden</li>
-          <li>Stoler på anbefalinger fra andre hundeejere</li>
-          <li>Køber igen: godbidder, legetøj, plejeudstyr</li>
-        </ul>
-      </article>
-      <article class="persona">
-        <span class="tag dk">B · Unik for Danmark</span>
-        <h3>Cyklende pendlere, 20–50</h3>
-        <span class="size">København, Aarhus, Odense</span>
-        <ul>
-          <li>Har brug for lys og regntøj fra oktober</li>
-          <li>Vil have hurtig levering, ikke 3 ugers ventetid</li>
-          <li>Amerikanske butikker sælger ikke til dem</li>
-        </ul>
-      </article>
-      <article class="persona">
-        <span class="tag dk">C · Sæson</span>
-        <h3>"Hygge-hjemmet", 25–45</h3>
-        <span class="size">Instagram og Pinterest</span>
-        <ul>
-          <li>Køber stemningslys og indretning op til jul</li>
-          <li>Gaveindkøb i november og december</li>
-          <li>Reagerer på flotte billeder i danske hjem</li>
-        </ul>
-      </article>
-      <article class="persona">
-        <span class="tag dk">D · Hurtig vækst</span>
-        <h3>Unge kvinder, 18–34</h3>
-        <span class="size">TikTok og Instagram Reels</span>
-        <ul>
-          <li>Hår, hudpleje, søvn og wellness</li>
-          <li>Køber på impuls fra korte videoer</li>
-          <li>Hård konkurrence, så du skal bruge danske creators</li>
-        </ul>
-      </article>
-      <article class="persona">
-        <span class="tag dk">E · Senere</span>
-        <h3>Nybagte forældre, 25–40</h3>
-        <span class="size">Mødregrupper og forældrefora</span>
-        <ul>
-          <li>Søger løsninger på konkrete problemer</li>
-          <li>Kræver høj tillid og sikre produkter</li>
-          <li>Babyprodukter har strenge krav. Vent med dem.</li>
-        </ul>
-      </article>
+    <div class="flow">
+      <div><i>Uge 1–2</i><b>Produkt</b><span>Vælg ét produkt med scorekortet</span></div>
+      <div><i>Uge 2–5</i><b>Indkøb</b><span>Samples, så 100–300 stk. med dit logo</span></div>
+      <div><i>Uge 3–5</i><b>Virksomhed</b><span>CVR, moms, import, regnskab</span></div>
+      <div><i>Uge 4–6</i><b>Webshop</b><span>Shopify, MobilePay, fragt</span></div>
+      <div><i>Uge 6–12</i><b>Kunder</b><span>Annoncer, creators, e-mail</span></div>
+      <div><i>Løbende</i><b>Genkøb</b><span>E-mail og tilbehør giver profitten</span></div>
+    </div>
+    <div class="tablebox">
+      <table>
+        <thead><tr><th></th><th>Dropshipping</th><th>Eget brand (denne model)</th></tr></thead>
+        <tbody>
+          <tr><td>Bruttomargin</td><td>20–40 %</td><td class="win">60–75 %</td></tr>
+          <tr><td>Leveringstid</td><td>7–20 dage fra udlandet</td><td class="win">1–2 dage fra Danmark</td></tr>
+          <tr><td>EU-told</td><td>3 € per vare, per ordre</td><td class="win">Betales én gang ved import af hele partiet</td></tr>
+          <tr><td>Konkurrence</td><td>Samme produkt som Temu og 1.000 andre</td><td class="win">Dit brand, dine billeder, din pakke</td></tr>
+          <tr><td>Startkapital</td><td class="win">Lav</td><td>20.000–50.000 kr.</td></tr>
+          <tr><td>Kunden køber igen</td><td>Sjældent</td><td class="win">Ja, hvis du bygger en e-mail-liste</td></tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
-  <section class="section" id="find">
-    <span class="eyebrow">Del 3 · Sådan finder du dem</span>
-    <h2>Find din danske målgruppe, trin for trin</h2>
-    <p>Trin 1–4 er gratis og fortæller dig, om der er efterspørgsel. Trin 5–8 sætter dig foran kunderne.</p>
+  <!-- 2 -->
+  <section class="section" id="tal">
+    <div class="head">
+      <span class="eyebrow">Del 2 · Tallene der afgør alt</span>
+      <h2>De 5 profitregler</h2>
+      <p>De fleste webshops dør, fordi produktet er for billigt i forhold til, hvad det koster at få en kunde. Overhold disse regler, så har du plads til annoncer og stadig overskud.</p>
+    </div>
+    <div class="rules">
+      <div class="rule"><span class="eyebrow">Regel 1 · Indkøb</span><span class="big">≤ 20 %</span><p>Varens pris inkl. fragt og told til Danmark må højst være 20–25 % af salgsprisen uden moms.</p></div>
+      <div class="rule"><span class="eyebrow">Regel 2 · Salgspris</span><span class="big">349–799 kr.</span><p>En kunde fra annoncer koster ofte 200–350 kr. Sælger du til 149 kr., kan regnestykket aldrig gå op.</p></div>
+      <div class="rule"><span class="eyebrow">Regel 3 · Kurvstørrelse</span><span class="big">+30 %</span><p>Sælg bundles og tilbehør ("køb 2, spar 15 %"). Samme annoncepris, større ordre.</p></div>
+      <div class="rule"><span class="eyebrow">Regel 4 · Genkøb</span><span class="big">25 %+</span><p>Den første ordre dækker annoncen. Profitten kommer, når kunden køber igen via e-mail, hvilket næsten ikke koster noget.</p></div>
+      <div class="rule"><span class="eyebrow">Regel 5 · Stop-grænse</span><span class="big">Max CPA</span><p>Regn ud, hvad en kunde højst må koste (afsnit 8). Slår en annonce ikke den grænse, slukker du den.</p></div>
+    </div>
+    <p class="note">Til sammenligning: amerikanske DTC-tal for 2026 viser en median-konvertering omkring 1,2–1,7 % og en Meta-pris per køb på cirka 38–49 $ (ca. 260–340 kr.). Danske tal kan være lavere, men regn med dem som udgangspunkt.</p>
+  </section>
+
+  <!-- 3 -->
+  <section class="section" id="produkt">
+    <div class="head">
+      <span class="eyebrow">Del 3 · Vælg produktet</span>
+      <h2>Vælg et sikkert produkt</h2>
+      <p>Nogle kategorier kræver godkendelser, laboratorietest eller registreringer, som koster tid og penge. Start i en "grøn" kategori.</p>
+    </div>
+    <div class="cols">
+      <div class="box cat yes">
+        <h3>Gode startkategorier</h3>
+        <ul>
+          <li>Tilbehør til hunde og katte (ikke foder): seler, senge, plejeudstyr, rejseskåle</li>
+          <li>Cykeltilbehør uden batterier: regnslag, styrhandsker, cykeltasker</li>
+          <li>Hjem og hygge: tæpper, puder, opbevaring, tekstiler</li>
+          <li>Træning: yogamåtter, elastikker, træningstasker</li>
+          <li>Tasker, organisering, rejsetilbehør</li>
+        </ul>
+      </div>
+      <div class="box cat no">
+        <h3>Undgå til at starte med</h3>
+        <ul>
+          <li>Kosmetik og hudpleje: kræver sikkerhedsvurdering og EU-registrering</li>
+          <li>Kosttilskud og fødevarer: kræver registrering hos Fødevarestyrelsen</li>
+          <li>Legetøj og babyprodukter: strenge sikkerhedskrav og test</li>
+          <li>Elektronik og batterier: CE, test, ekstra producentansvar</li>
+          <li>Ting med mad-kontakt (fx flasker, bokse): særlige materialekrav</li>
+          <li>Kopier af kendte mærker: ulovligt og kan koste erstatning</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Scorekort: test din produktidé</h3>
+    <div class="tool">
+      <div class="inputs">
+        <label for="pName">Produkt<input type="text" id="pName" value="Hundesele med refleks (eksempel)"></label>
+        <div class="crit" id="crit">
+          <label><input type="checkbox" checked><span>Kan sælges for 349–799 kr.<small>Høj nok pris til at dække annoncer</small></span></label>
+          <label><input type="checkbox" checked><span>Indkøb ≤ 20–25 % af prisen uden moms<small>Inkl. fragt og told til Danmark</small></span></label>
+          <label><input type="checkbox" checked><span>Let og lille (under 2 kg, passer i en pakkeshop)<small>Billig fragt til kunden</small></span></label>
+          <label><input type="checkbox" checked><span>Går ikke let i stykker<small>Færre returneringer og klager</small></span></label>
+          <label><input type="checkbox" checked><span>Ligger i en grøn kategori<small>Ingen særlige godkendelser</small></span></label>
+          <label><input type="checkbox" checked><span>Løser et tydeligt problem<small>Kan forklares på 5 sekunder</small></span></label>
+          <label><input type="checkbox" checked><span>Kan vises i en kort video<small>Fungerer på TikTok og Reels</small></span></label>
+          <label><input type="checkbox"><span>Giver genkøb eller tilbehør<small>Flere ordrer per kunde</small></span></label>
+          <label><input type="checkbox" checked><span>Sælges ikke billigt i store danske butikker<small>Tjek Pricerunner.dk</small></span></label>
+          <label><input type="checkbox" checked><span>Kan få dit logo og din emballage<small>Bliver dit brand, ikke en kopi</small></span></label>
+        </div>
+      </div>
+      <div class="result" aria-live="polite">
+        <span class="eyebrow" id="pLabel">Score</span>
+        <span class="big" id="pScore"></span>
+        <div class="verdict" id="pVerdict"></div>
+        <p class="note">Test 5–10 idéer. Gå kun videre med dem der får 9 eller 10, og bestil samples fra 3 leverandører.</p>
+      </div>
+    </div>
+
     <ol class="steps">
-      <li><div>
-        <h3>Tjek interessen i Danmark med Google Trends</h3>
-        <p class="how">Åbn <a href="https://trends.google.com/trends/explore?geo=DK&amp;q=hundeseng,cykellygte,led%20stearinlys" target="_blank" rel="noopener">Google Trends for Danmark</a> og skriv produktet <strong>på dansk</strong> (fx <code>hundeseng</code>, <code>cykellygte</code>). Stiger kurven, eller topper den hver vinter? Se også "Interesse efter underregion".</p>
-      </div></li>
-      <li><div>
-        <h3>Se hvad andre allerede sælger i Danmark</h3>
-        <p class="how">Gå ind på <a href="https://www.facebook.com/ads/library/?country=DK" target="_blank" rel="noopener">Meta Annoncebiblioteket</a>, vælg land <code>Danmark</code>, og søg på produktet. Fordi Danmark er i EU, viser biblioteket ofte rækkevidde fordelt på alder, køn og region for danske annoncer. Det fortæller dig præcist, hvem der køber. Annoncer der har kørt i mange uger, tjener penge.</p>
-      </div></li>
-      <li><div>
-        <h3>Tæl målgruppen i Meta Ads Manager (gratis)</h3>
-        <p class="how">Lav en kladde-kampagne → Målgruppe → Placering <code>Danmark</code>, alder, interesser (fx <code>Hunde</code>, <code>Cykling</code>, <code>Boligindretning</code>). "Anslået målgruppestørrelse" er dit marked i tal. Gem målgruppen, og udgiv ikke endnu.</p>
-      </div></li>
-      <li><div>
-        <h3>Tjek prisen på Pricerunner</h3>
-        <p class="how">Søg produktet på <a href="https://www.pricerunner.dk" target="_blank" rel="noopener">Pricerunner.dk</a>. Hvis store danske butikker sælger det billigere, end du kan, så vælg et andet produkt. Tjek også konkurrenternes anmeldelser på <a href="https://dk.trustpilot.com" target="_blank" rel="noopener">Trustpilot</a>: klager om lang levering er din chance.</p>
-      </div></li>
-      <li><div>
-        <h3>Brug TikTok som søgemaskine</h3>
-        <p class="how">I <a href="https://ads.tiktok.com/business/creativecenter/" target="_blank" rel="noopener">TikTok Creative Center</a> kan du se topannoncer og trendende hashtags og vælge region. Søg også direkte på TikTok med danske ord: <code>#tiktokmademebuyit dansk</code>, <code>#hundeliv</code>, <code>#hygge</code>, <code>#cykelkbh</code>.</p>
-      </div></li>
-      <li><div>
-        <h3>Gå ind i de danske grupper</h3>
-        <p class="how">Søg på Facebook efter grupper som "[hunderace] Danmark", cykelgrupper eller boliggrupper. Læs hvilke problemer folk klager over. De ord de bruger, er dine annonceoverskrifter. Spam ikke, men svar på spørgsmål og vær hjælpsom.</p>
-      </div></li>
-      <li><div>
-        <h3>Betal små danske creators</h3>
-        <p class="how">Find danske TikTok- og Instagram-profiler med 2.000–50.000 følgere i din niche. Send et gratis produkt og betal for en ærlig video. Brug videoen som annonce. En dansk stemme sælger bedre end en oversat amerikansk video.</p>
-      </div></li>
-      <li><div>
-        <h3>Test med et lille budget</h3>
-        <p class="how">Kør 2–3 annoncevarianter med 100–150 kr. om dagen i 4–5 dage, kun i Danmark. Se på pris per køb, ikke likes. Brug beregneren nedenfor til at finde den maksimale annoncepris du kan tåle.</p>
-      </div></li>
+      <li><div><h3>Find idéer</h3><p class="how">Søg på Amazon.com "Best Sellers" og "Movers &amp; Shakers" i din kategori, TikTok-søgning (<code>#amazonfinds</code>), og danske Facebook-grupper hvor folk klager over et problem.</p></div></li>
+      <li><div><h3>Tjek dansk efterspørgsel</h3><p class="how">Google Trends med <code>geo=DK</code> og danske ord. Meta Annoncebiblioteket med land Danmark: kører andre annoncer på det i flere uger, er der købere.</p></div></li>
+      <li><div><h3>Tjek konkurrencen</h3><p class="how">Pricerunner.dk og Google Shopping. Find en vinkel: bedre materiale, et bundle, en dansk størrelse eller farve, bedre billeder.</p></div></li>
     </ol>
   </section>
 
-  <section class="section" id="regnestykke">
-    <span class="eyebrow">Del 4 · Regn det ud</span>
-    <h2>Hvad tjener du per ordre?</h2>
-    <p>Træk i skyderne. Startværdierne er et eksempel, ikke rigtige tal. Beregneren regner med 25 % moms og EU's toldafgift på 3 € per vare fra lande uden for EU (gælder siden 1. juli 2026).</p>
-    <div class="calc">
-      <div class="inputs">
-        <label for="sale"><span class="row"><span>Salgspris inkl. moms</span><output id="saleOut"></output></span>
-          <input type="range" id="sale" min="99" max="1499" step="10" value="399"></label>
-        <label for="cost"><span class="row"><span>Varepris hos leverandør</span><output id="costOut"></output></span>
-          <input type="range" id="cost" min="10" max="600" step="5" value="90"></label>
-        <label for="ship"><span class="row"><span>Fragt til kunden</span><output id="shipOut"></output></span>
-          <input type="range" id="ship" min="0" max="150" step="5" value="45"></label>
-        <label for="ads"><span class="row"><span>Annoncepris per salg</span><output id="adsOut"></output></span>
-          <input type="range" id="ads" min="0" max="400" step="5" value="110"></label>
-        <label for="nonEu" style="display:flex;gap:8px;align-items:center;font-size:0.9rem;">
-          <input type="checkbox" id="nonEu" checked> Leverandøren sender fra et land uden for EU (USA, Kina)</label>
+  <!-- 4 -->
+  <section class="section" id="indkob">
+    <div class="head">
+      <span class="eyebrow">Del 4 · Indkøb og import</span>
+      <h2>Køb ind sikkert</h2>
+      <p>Du køber som virksomhed (B2B). Så gælder almindelig told på hele partiet, og du får importmomsen tilbage, når du er momsregistreret.</p>
+    </div>
+    <ol class="steps">
+      <li><div><h3>Find 5 leverandører</h3><p class="how">På Alibaba.com: filtrér på <code>Verified Supplier</code> og <code>Trade Assurance</code>, mindst 3 års historik og gode svar. Prøv også europæiske leverandører, hvis du vil undgå told og lang fragt.</p></div></li>
+      <li><div><h3>Bestil samples fra 3 af dem</h3><p class="how">Budget: 300–1.000 kr. per sample inkl. fragt. Tjek kvalitet, syninger, lugt og mål. Tag billeder. Vælg den bedste, ikke den billigste.</p></div></li>
+      <li><div><h3>Forhandl første ordre</h3><p class="how">Spørg om MOQ (mindste antal) og forhandl ned til 100–300 stk. Bed om logo på produktet og din egen emballage. Få pris, materialer, farver og leveringstid skriftligt.</p></div></li>
+      <li><div><h3>Betal sikkert</h3><p class="how">Betal kun via Alibabas Trade Assurance. Aldrig direkte bankoverførsel til en privatperson. Typisk 30 % ved bestilling og 70 % før afsendelse.</p></div></li>
+      <li><div><h3>Kvalitetskontrol</h3><p class="how">Ved ordrer over ca. 15.000 kr.: betal et inspektionsfirma (fx QIMA eller V-Trust, ca. 2.000 kr.) til at tjekke varerne på fabrikken før afsendelse.</p></div></li>
+      <li><div><h3>Fragt og told</h3><p class="how">Første parti: luftfragt/ekspres (DHL/UPS), 7–10 dage. Senere: søfragt, billigere men 5–7 uger. Find toldsatsen for din varekode i EU's TARIC-database. Fragtfirmaet klarer tolddeklarationen.</p></div></li>
+      <li><div><h3>Mærkning (GPSR)</h3><p class="how">Som importør skal dit firmanavn og din adresse stå på produktet eller emballagen, sammen med producentens navn, en sporingskode (batch) og nødvendige advarsler. Det samme skal stå på produktsiden.</p></div></li>
+    </ol>
+  </section>
+
+  <!-- 5 -->
+  <section class="section" id="virksomhed">
+    <div class="head">
+      <span class="eyebrow">Del 5 · Virksomhed og lovkrav</span>
+      <h2>Din virksomhed skal være i orden fra dag ét</h2>
+      <p>Gør det i denne rækkefølge. Det meste klares på <a href="https://virk.dk" target="_blank" rel="noopener">virk.dk</a> med MitID.</p>
+    </div>
+    <div class="tablebox legal">
+      <table>
+        <thead><tr><th>Hvad</th><th>Hvorfor og hvordan</th><th>Pris</th></tr></thead>
+        <tbody>
+          <tr><td>CVR-nummer</td><td>Start en enkeltmandsvirksomhed på virk.dk. Den er gratis og hurtig. Overvej ApS senere, når du tjener mere og vil begrænse din personlige risiko.</td><td>0 kr.</td></tr>
+          <tr><td>Momsregistrering</td><td>Påkrævet, når du forventer at sælge for over 50.000 kr. ekskl. moms i et kalenderår. Registrér fra start alligevel, så du får importmoms og moms på udgifter tilbage.</td><td>0 kr.</td></tr>
+          <tr><td>Import (EORI)</td><td>Registrér virksomheden til import hos Toldstyrelsen via virk.dk, før det første parti sendes.</td><td>0 kr.</td></tr>
+          <tr><td>Digital bogføring</td><td>Brug et digitalt regnskabsprogram fra dag ét (fx Dinero, Billy eller e-conomic). Det er lovkrav for personligt ejede virksomheder med over 300.000 kr. i omsætning to år i træk. Gem alle bilag digitalt i 5 år.</td><td>0–300 kr./md.</td></tr>
+          <tr><td>Producentansvar for emballage</td><td>Når du importerer, er du ansvarlig for både produkt- og forsendelsesemballage. Registrér dig hos Dansk Producentansvar (DPA) og indberet mængder.</td><td>1.000 kr. + lille årligt gebyr</td></tr>
+          <tr><td>Produktsikkerhed (GPSR)</td><td>Du skal kunne dokumentere, at produktet er sikkert: risikovurdering, producentens papirer, mærkning, og en plan hvis noget skal kaldes tilbage.</td><td>Din tid</td></tr>
+          <tr><td>Webshop-regler</td><td>Handelsbetingelser, 14 dages fortrydelsesret, privatlivspolitik (GDPR), cookie-samtykke, CVR og kontaktoplysninger synligt på siden.</td><td>0–150 kr./md.</td></tr>
+          <tr><td>Forsikring</td><td>Erhvervs- og produktansvarsforsikring. Beskytter dig, hvis et produkt skader nogen.</td><td>ca. 1.500–4.000 kr./år</td></tr>
+          <tr><td>Skat</td><td>Ret din forskudsopgørelse på skat.dk, så du betaler skat af overskuddet løbende og ikke får en stor restskat.</td><td>0 kr.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Det er ikke juridisk rådgivning. Book et gratis møde med Erhvervshus (din regions iværksættervejledning) eller en revisor, før du bestiller dit første parti.</p>
+  </section>
+
+  <!-- 6 -->
+  <section class="section" id="webshop">
+    <div class="head">
+      <span class="eyebrow">Del 6 · Webshoppen</span>
+      <h2>Sådan sætter du webshoppen op</h2>
+      <p>Hold det enkelt: ét produkt (plus tilbehør), én butik, få apps. Alt herunder kan sættes op uden at kunne kode.</p>
+    </div>
+    <div class="stack">
+      <div><i>Platform</i><b>Shopify</b><span>Nemmest og flest apps. Dansk alternativ: Shoporama.</span></div>
+      <div><i>Betaling</i><b>Kort + MobilePay</b><span>Shopify Payments eller QuickPay. Uden MobilePay mister du danske kunder.</span></div>
+      <div><i>Fragt</i><b>Shipmondo</b><span>Pakkeshop-valg i kassen (GLS, PostNord, DAO), labels med ét klik.</span></div>
+      <div><i>E-mail</i><b>Klaviyo</b><span>Automatiske mails: velkomst, forladt kurv, efter køb, genkøb.</span></div>
+      <div><i>Anmeldelser</i><b>Trustpilot + produktanmeldelser</b><span>Danskerne tjekker Trustpilot før de køber hos en ny butik.</span></div>
+      <div><i>Regnskab</i><b>Dinero eller Billy</b><span>Kobl til Shopify, så salg og moms bogføres automatisk.</span></div>
+      <div><i>Sporing</i><b>Meta Pixel + Conversions API</b><span>Ellers kan annoncerne ikke lære, hvem der køber.</span></div>
+      <div><i>Google</i><b>Merchant Center</b><span>Dine produkter i Google Shopping, gratis og betalt.</span></div>
+    </div>
+    <div class="cols">
+      <div class="box">
+        <h3>Produktsiden der sælger</h3>
+        <ul>
+          <li>Overskrift med fordelen, ikke produktnavnet ("Gåture i mørket uden at være bange")</li>
+          <li>6–8 billeder: i brug, i Danmark, detaljer, størrelse</li>
+          <li>En kort video øverst</li>
+          <li>3 korte fordele med ikoner</li>
+          <li>Bundle-tilbud: "Køb 2 – spar 15 %"</li>
+          <li>Levering: "Sendes i dag før kl. 14 · 1–2 dage"</li>
+          <li>Anmeldelser og FAQ</li>
+          <li>Sikkerhedsinfo, producent og importør (GPSR)</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Sider du skal have</h3>
+        <ul>
+          <li>Forside med dit brand og bedste produkt</li>
+          <li>Produktside(r)</li>
+          <li>Om os: en ægte dansk historie og et ansigt</li>
+          <li>Kontakt med CVR, adresse, e-mail og telefon</li>
+          <li>Handelsbetingelser, fortrydelsesret og returnering</li>
+          <li>Privatlivspolitik og cookiepolitik</li>
+          <li>Levering og fragtpriser</li>
+          <li>Gratis fragt over fx 499 kr., så kurven bliver større</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="section" id="marketing">
+    <div class="head">
+      <span class="eyebrow">Del 7 · Få kunder</span>
+      <h2>Marketing der kan betale sig</h2>
+      <p>Annoncerne skaffer den første ordre. E-mail og anmeldelser skaffer profitten. Brug begge.</p>
+    </div>
+    <ol class="steps">
+      <li><div><h3>Lav 15–20 korte videoer før lancering</h3><p class="how">Film produktet i brug med telefonen. Første 2 sekunder skal vise problemet. Betal 3–5 danske creators med 2.000–50.000 følgere 500–1.500 kr. for en ærlig video (UGC). Det er dine bedste annoncer.</p></div></li>
+      <li><div><h3>Byg en venteliste</h3><p class="how">Før lancering: "Få 10 % rabat og besked når vi åbner". Del på TikTok, Instagram og i relevante grupper. 200 e-mails giver ofte de første 10–30 salg.</p></div></li>
+      <li><div><h3>Test Meta-annoncer i Danmark</h3><p class="how">Ét kampagne-setup, bredt publikum (hele Danmark, 18–65), 3–5 videoer, 150–300 kr. om dagen. Mål kun pris per køb. Efter 3–4 dage: sluk dem over din Max CPA og behold vinderne.</p></div></li>
+      <li><div><h3>Skalér langsomt</h3><p class="how">Hæv budgettet med 20 % hver 3. dag på vinderne. Lav 3–5 nye videoer hver uge, for annoncer slides op. Tilføj TikTok-annoncer, når Meta virker.</p></div></li>
+      <li><div><h3>Google Shopping</h3><p class="how">Folk der søger "hundesele refleks" er klar til at købe. Start med 50–100 kr. om dagen på Shopping-kampagner.</p></div></li>
+      <li><div><h3>E-mail-flows (gratis profit)</h3><p class="how">Velkomst (3 mails), forladt kurv (2 mails), tak for købet + bed om anmeldelse, genkøb efter 30–60 dage. Send 1 nyhedsbrev om ugen.</p></div></li>
+    </ol>
+  </section>
+
+  <!-- 8 -->
+  <section class="section" id="profit">
+    <div class="head">
+      <span class="eyebrow">Del 8 · Regn det ud</span>
+      <h2>Startbudget og månedlig profit</h2>
+      <p>Startværdierne er et eksempel, ikke dine tal. Ret dem til, når du har priser fra leverandøren og de første annoncetal.</p>
+    </div>
+
+    <h3>Startbudget</h3>
+    <div class="tool">
+      <div class="budget" id="budget">
+        <label for="bUnits">Antal stk. i første parti</label><input type="number" id="bUnits" value="200" min="0">
+        <label for="bUnit">Pris per stk. inkl. fragt og told (kr.)</label><input type="number" id="bUnit" value="65" min="0">
+        <label for="bSamples">Samples fra 3 leverandører</label><input type="number" id="bSamples" value="2000" min="0">
+        <label for="bSetup">Shopify, apps og domæne (3 mdr.)</label><input type="number" id="bSetup" value="1800" min="0">
+        <label for="bLegal">DPA, forsikring, regnskab</label><input type="number" id="bLegal" value="3500" min="0">
+        <label for="bPack">Emballage og forsendelsesmateriale</label><input type="number" id="bPack" value="2000" min="0">
+        <label for="bContent">Creators og billeder</label><input type="number" id="bContent" value="5000" min="0">
+        <label for="bAds">Annoncetest</label><input type="number" id="bAds" value="10000" min="0">
+        <label for="bBuffer">Buffer til uforudsete ting</label><input type="number" id="bBuffer" value="5000" min="0">
       </div>
       <div class="result" aria-live="polite">
-        <span class="eyebrow">Fortjeneste per ordre</span>
-        <span class="big" id="profit"></span>
+        <span class="eyebrow">Du skal bruge</span>
+        <span class="big" id="bTotal"></span>
         <dl>
-          <dt>Salgspris ekskl. moms</dt><dd id="exvat"></dd>
-          <dt>Varepris</dt><dd id="rCost"></dd>
-          <dt>Fragt</dt><dd id="rShip"></dd>
-          <dt>EU-told (3 €)</dt><dd id="rDuty"></dd>
-          <dt>Betalingsgebyr (~2 %)</dt><dd id="rFee"></dd>
-          <dt>Annoncer</dt><dd id="rAds"></dd>
-          <dt class="total">Margin</dt><dd class="total" id="margin"></dd>
+          <dt>Varelager</dt><dd id="bStock"></dd>
+          <dt>Opstart</dt><dd id="bRest"></dd>
+          <dt>Varelagerets salgsværdi (ved prisen nedenfor)</dt><dd id="bValue"></dd>
         </dl>
-        <p class="note" id="maxAds"></p>
+        <p class="note">Brug kun penge, du kan undvære. Lån ikke til opstarten.</p>
       </div>
     </div>
-  </section>
 
-  <section class="section" id="annoncer">
-    <span class="eyebrow">Del 5 · Hvad du skal sige</span>
-    <h2>Annoncetekster på dansk</h2>
-    <p>Fremhæv det Temu og amerikanske butikker ikke kan love: dansk service, MobilePay og hurtig levering.</p>
-    <div class="ads">
-      <div class="ad">
-        <span class="hl">Se og bliv set – hele vinteren</span>
-        <p>Genopladelig cykellygte, der holder hele vejen hjem. Levering på 1–3 hverdage. Betal med MobilePay.</p>
-        <button type="button" data-copy="Se og bliv set – hele vinteren. Genopladelig cykellygte, der holder hele vejen hjem. Levering på 1–3 hverdage. Betal med MobilePay.">Kopiér tekst</button>
+    <h3>Profit per måned</h3>
+    <div class="tool">
+      <div class="inputs">
+        <label for="price"><span class="row"><span>Salgspris inkl. moms</span><output id="priceOut"></output></span><input type="range" id="price" min="149" max="1299" step="10" value="449"></label>
+        <label for="landed"><span class="row"><span>Indkøb per stk. inkl. fragt og told</span><output id="landedOut"></output></span><input type="range" id="landed" min="10" max="500" step="5" value="65"></label>
+        <label for="fulfil"><span class="row"><span>Fragt + emballage per ordre</span><output id="fulfilOut"></output></span><input type="range" id="fulfil" min="0" max="150" step="5" value="45"></label>
+        <label for="cpa"><span class="row"><span>Annoncepris per ny kunde (CPA)</span><output id="cpaOut"></output></span><input type="range" id="cpa" min="0" max="500" step="10" value="200"></label>
+        <label for="cust"><span class="row"><span>Nye kunder per måned</span><output id="custOut"></output></span><input type="range" id="cust" min="0" max="1000" step="10" value="150"></label>
+        <label for="rep"><span class="row"><span>Genkøb via e-mail (ordrer per 100 kunder)</span><output id="repOut"></output></span><input type="range" id="rep" min="0" max="80" step="5" value="25"></label>
+        <label for="fixed"><span class="row"><span>Faste udgifter per måned</span><output id="fixedOut"></output></span><input type="range" id="fixed" min="0" max="10000" step="100" value="1500"></label>
       </div>
-      <div class="ad">
-        <span class="hl">Din hund fortjener en god nats søvn</span>
-        <p>Ortopædisk hundeseng med vaskbart betræk. 30 dages returret og dansk kundeservice.</p>
-        <button type="button" data-copy="Din hund fortjener en god nats søvn. Ortopædisk hundeseng med vaskbart betræk. 30 dages returret og dansk kundeservice.">Kopiér tekst</button>
-      </div>
-      <div class="ad">
-        <span class="hl">Hygge uden levende lys</span>
-        <p>LED-stearinlys med fjernbetjening og timer. Ingen sod, ingen brandfare. Perfekt som julegave.</p>
-        <button type="button" data-copy="Hygge uden levende lys. LED-stearinlys med fjernbetjening og timer. Ingen sod, ingen brandfare. Perfekt som julegave.">Kopiér tekst</button>
+      <div class="result" aria-live="polite">
+        <span class="eyebrow">Overskud per måned (før skat)</span>
+        <span class="big" id="mProfit"></span>
+        <div class="verdict" id="mVerdict"></div>
+        <dl>
+          <dt>Omsætning inkl. moms</dt><dd id="mRev"></dd>
+          <dt>Bruttomargin</dt><dd id="mGm"></dd>
+          <dt>Dækningsbidrag per ordre (før annoncer)</dt><dd id="mContrib"></dd>
+          <dt>Profit på første ordre</dt><dd id="mFirst"></dd>
+          <dt>Annonceforbrug</dt><dd id="mAds"></dd>
+          <dt class="sum">Max CPA (din stop-grænse)</dt><dd class="sum" id="mMax"></dd>
+          <dt class="sum">Break-even ROAS (på pris inkl. moms)</dt><dd class="sum" id="mRoas"></dd>
+        </dl>
       </div>
     </div>
+    <p class="note">Beregneren trækker 25 % moms og ca. 2 % betalingsgebyr fra. ROAS = omsætning delt med annonceforbrug. Ligger din ROAS i Meta under break-even, taber du penge på den første ordre.</p>
   </section>
 
-  <section class="section" id="tjekliste">
-    <span class="eyebrow">Del 6 · Før du åbner</span>
-    <h2>Dansk tjekliste til din webshop</h2>
-    <ul class="check">
-      <li>CVR-nummer og danske handelsbetingelser på siden</li>
-      <li>Priser i kroner inkl. 25 % moms</li>
-      <li>MobilePay og danske kort ved betaling</li>
-      <li>Ærlig leveringstid, og skriv tydeligt hvis varen sendes fra udlandet</li>
-      <li>14 dages fortrydelsesret, og hvem der betaler returfragten</li>
-      <li>Leverandør med lager i EU, så kunden ikke får told og lang ventetid</li>
-      <li>CE-mærkning på elektronik, lys og batterier</li>
-      <li>Ingen helbredsløfter du ikke kan dokumentere</li>
-      <li>Trustpilot-profil fra dag ét, og bed de første kunder om en anmeldelse</li>
-      <li>Bestil selv produktet først, og tjek kvalitet og leveringstid</li>
-    </ul>
-    <p class="note">Det er ikke juridisk rådgivning. Læs Forbrugerombudsmandens vejledning om webshops og tal med en revisor om moms, før du starter.</p>
+  <!-- 9 -->
+  <section class="section" id="plan">
+    <div class="head">
+      <span class="eyebrow">Del 9 · Din plan</span>
+      <h2>90-dages tjekliste</h2>
+      <p>Sæt hak, efterhånden som du bliver færdig. Dine hak gemmes i denne browser.</p>
+      <div class="progress" aria-hidden="true"><div id="bar"></div></div>
+      <p class="note" id="progText"></p>
+    </div>
+    <div class="phases" id="phases">
+      <div class="phase"><span class="when">Uge 1–2 · Produkt</span><h3>Find og test idéen</h3>
+        <label><input type="checkbox" data-k="p1"><span>Skriv 10 produktidéer i grønne kategorier</span></label>
+        <label><input type="checkbox" data-k="p2"><span>Kør dem gennem scorekortet</span></label>
+        <label><input type="checkbox" data-k="p3"><span>Tjek Google Trends, Annoncebiblioteket og Pricerunner</span></label>
+        <label><input type="checkbox" data-k="p4"><span>Kontakt 5 leverandører</span></label>
+        <label><input type="checkbox" data-k="p5"><span>Bestil samples fra de 3 bedste</span></label>
+      </div>
+      <div class="phase"><span class="when">Uge 2–4 · Virksomhed</span><h3>Få papirerne i orden</h3>
+        <label><input type="checkbox" data-k="v1"><span>CVR-nummer på virk.dk</span></label>
+        <label><input type="checkbox" data-k="v2"><span>Momsregistrering og import (EORI)</span></label>
+        <label><input type="checkbox" data-k="v3"><span>Regnskabsprogram og erhvervskonto i banken</span></label>
+        <label><input type="checkbox" data-k="v4"><span>Registrering hos Dansk Producentansvar</span></label>
+        <label><input type="checkbox" data-k="v5"><span>Produktansvarsforsikring</span></label>
+        <label><input type="checkbox" data-k="v6"><span>Møde med Erhvervshus eller revisor</span></label>
+      </div>
+      <div class="phase"><span class="when">Uge 3–5 · Indkøb</span><h3>Bestil første parti</h3>
+        <label><input type="checkbox" data-k="i1"><span>Vælg leverandør ud fra samples</span></label>
+        <label><input type="checkbox" data-k="i2"><span>Logo og emballage designet (Canva er nok)</span></label>
+        <label><input type="checkbox" data-k="i3"><span>Bestil 100–300 stk. via Trade Assurance</span></label>
+        <label><input type="checkbox" data-k="i4"><span>Mærkning med importør og batch (GPSR)</span></label>
+        <label><input type="checkbox" data-k="i5"><span>Book luftfragt og toldbehandling</span></label>
+      </div>
+      <div class="phase"><span class="when">Uge 4–6 · Webshop</span><h3>Byg butikken</h3>
+        <label><input type="checkbox" data-k="w1"><span>Shopify, domæne og tema</span></label>
+        <label><input type="checkbox" data-k="w2"><span>Kort + MobilePay, Shipmondo</span></label>
+        <label><input type="checkbox" data-k="w3"><span>Produktside med video, bundles og FAQ</span></label>
+        <label><input type="checkbox" data-k="w4"><span>Alle lovpligtige sider og cookie-banner</span></label>
+        <label><input type="checkbox" data-k="w5"><span>Klaviyo-flows, Meta Pixel, Trustpilot</span></label>
+        <label><input type="checkbox" data-k="w6"><span>Testkøb: betal, pak og send en ordre til dig selv</span></label>
+      </div>
+      <div class="phase"><span class="when">Uge 5–7 · Lancering</span><h3>Første kunder</h3>
+        <label><input type="checkbox" data-k="l1"><span>15–20 videoer og 3–5 creators</span></label>
+        <label><input type="checkbox" data-k="l2"><span>Venteliste med 10 % rabat</span></label>
+        <label><input type="checkbox" data-k="l3"><span>Åbn shoppen og mail ventelisten</span></label>
+        <label><input type="checkbox" data-k="l4"><span>Start Meta-test, 150–300 kr./dag</span></label>
+        <label><input type="checkbox" data-k="l5"><span>Bed hver kunde om en anmeldelse</span></label>
+      </div>
+      <div class="phase"><span class="when">Uge 8–12 · Vækst</span><h3>Skalér det der virker</h3>
+        <label><input type="checkbox" data-k="g1"><span>Sluk annoncer over Max CPA</span></label>
+        <label><input type="checkbox" data-k="g2"><span>+20 % budget hver 3. dag på vinderne</span></label>
+        <label><input type="checkbox" data-k="g3"><span>Google Shopping og TikTok-annoncer</span></label>
+        <label><input type="checkbox" data-k="g4"><span>Tilføj tilbehør eller produkt nr. 2</span></label>
+        <label><input type="checkbox" data-k="g5"><span>Genbestil lager, når 40 % er solgt</span></label>
+        <label><input type="checkbox" data-k="g6"><span>Gennemgå tal: profit, CPA, genkøb</span></label>
+      </div>
+    </div>
+    <button type="button" class="reset" id="reset">Nulstil tjekliste</button>
+  </section>
+
+  <!-- 10 -->
+  <section class="section" id="risiko">
+    <div class="head">
+      <span class="eyebrow">Del 10 · Sikkerhed</span>
+      <h2>Sådan undgår du at tabe penge</h2>
+    </div>
+    <div class="cols">
+      <div class="box">
+        <h3>Stop-regler</h3>
+        <ul>
+          <li>En annonce har brugt 2× din Max CPA uden salg: sluk den</li>
+          <li>Hele annoncetesten (fx 10.000 kr.) giver ingen annonce under Max CPA: stop, og prøv nyt produkt eller ny vinkel, ikke flere penge</li>
+          <li>Over 10 % returneringer eller klager: stop salget og find årsagen</li>
+          <li>Køb aldrig mere lager, end du har solgt de sidste 6–8 uger</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Svindel og fælder</h3>
+        <ul>
+          <li>Leverandører der vil have betaling uden om Alibaba</li>
+          <li>"Kurser" der lover at du bliver rig: denne side er det, du har brug for</li>
+          <li>Kopier af kendte mærker og billeder taget fra andre butikker</li>
+          <li>Falske anmeldelser: ulovligt og opdages af Trustpilot</li>
+          <li>Helbredsløfter du ikke kan bevise</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Ugentlig rutine (2 timer)</h3>
+        <ul>
+          <li>Mandag: tjek salg, CPA, ROAS og lager</li>
+          <li>Tirsdag: lav 3–5 nye videoer</li>
+          <li>Onsdag: send nyhedsbrev</li>
+          <li>Fredag: bogfør bilag, svar på anmeldelser</li>
+          <li>Hver dag: pak og send ordrer før kl. 14</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <footer class="sources">
     <span class="eyebrow">Kilder</span>
     <ul>
-      <li><a href="https://www.danskerhverv.dk/presse-og-nyheder/nyheder/2026/februar/e-handelsanalysen-2025-er-klar-her-er-5-ting-du-skal-vide-om-de-danske-forbrugere/" target="_blank" rel="noopener">Dansk Erhverv: E-handelsanalysen 2025 (91 % handler online)</a></li>
-      <li><a href="https://www.danskindustri.dk/vi-radgiver-dig/ecommerce/di-e-commerce-analyser/analyser/2026/danskernes-arlige-e-commerce-tracker-2025/" target="_blank" rel="noopener">DI: Danskernes e-commerce tracker 2025 (mobil 49 % af købene)</a></li>
-      <li><a href="https://www.danskerhverv.dk/presse-og-nyheder/nyheder/2025/februar/ny-analyse-forbruget-pa-nettet-vokser--desvarre-mest-i-kinesiske-butikker/" target="_blank" rel="noopener">Dansk Erhverv: Væksten sker mest i kinesiske butikker</a></li>
-      <li><a href="https://taxation-customs.ec.europa.eu/news/guidance-and-legal-text-temporary-flat-fee-low-value-imports-which-will-apply-until-1-july-2028-2026-06-08_en" target="_blank" rel="noopener">EU-Kommissionen: 3 € told på småpakker fra 1. juli 2026</a></li>
-      <li><a href="https://www.trendtrack.io/blog-post/top-trending-dropshipping-products-in-2026-summer-2026" target="_blank" rel="noopener">TrendTrack: Top trending dropshipping products 2026</a></li>
-      <li><a href="https://www.dropified.com/blog/top-50-trending-dropshipping-products-to-sell-in-2026-with-profit-margins/" target="_blank" rel="noopener">Dropified: Top 50 trending products 2026</a></li>
-      <li><a href="https://printify.com/blog/dropshipping-products" target="_blank" rel="noopener">Printify: Dropshipping products</a></li>
+      <li><a href="https://lovguiden.dk/det-offentlige/skatteministeriet/2025-12-18-momsloven" target="_blank" rel="noopener">Lovguiden: momsgrænse 50.000 kr. fastholdt</a> · <a href="https://dinero.dk/nyheder/nye-regler-momsregistrering/" target="_blank" rel="noopener">Dinero: momsregistrering pr. kalenderår</a></li>
+      <li><a href="https://erhvervsstyrelsen.dk/ikke-registrerede-digitale-bogfoeringssystemer" target="_blank" rel="noopener">Erhvervsstyrelsen: digitale bogføringssystemer</a> · <a href="https://www.danskerhverv.dk/presse-og-nyheder/nyheder/2025/april/digital-bogforing-bliver-ogsa-obligatorisk-for-personligt-ejede-virksomheder-og-for-eninger-fra-1.-januar-2026" target="_blank" rel="noopener">Dansk Erhverv: digital bogføring for personligt ejede virksomheder</a></li>
+      <li><a href="https://www.shoporama.dk/en/blog/emballageproducentansvar-webshop" target="_blank" rel="noopener">Shoporama: producentansvar for webshops</a> · <a href="https://www.bdo.dk/da-dk/faglig-info/depechen/depechen-artikler-2025/tusindvis-af-virksomheder-mangler-registrering-for-nyt-emballagegebyr" target="_blank" rel="noopener">BDO: registrering for emballagegebyr</a></li>
+      <li><a href="https://linklaters.com/insights/blogs/productliabilitylinks/2024/december/changes-through-the-new-product-safety-regulation" target="_blank" rel="noopener">Linklaters: GPSR</a> · <a href="https://www.mondaq.com/ireland/product-liability-safety/1723902/european-commission-publishes-guidelines-on-general-product-safety-regulation" target="_blank" rel="noopener">EU-Kommissionens GPSR-retningslinjer (Mondaq)</a></li>
+      <li><a href="https://taxation-customs.ec.europa.eu/news/guidance-and-legal-text-temporary-flat-fee-low-value-imports-which-will-apply-until-1-july-2028-2026-06-08_en" target="_blank" rel="noopener">EU-Kommissionen: 3 € told på småpakker</a></li>
+      <li><a href="https://topgrowthmarketing.com/dtc-benchmarks-2026/" target="_blank" rel="noopener">Top Growth Marketing: DTC benchmarks 2026</a> · <a href="https://triplewhale.com/blog/ecommerce-benchmarks" target="_blank" rel="noopener">Triple Whale: e-commerce benchmarks</a></li>
+      <li><a href="https://www.danskerhverv.dk/presse-og-nyheder/nyheder/2026/februar/e-handelsanalysen-2025-er-klar-her-er-5-ting-du-skal-vide-om-de-danske-forbrugere/" target="_blank" rel="noopener">Dansk Erhverv: E-handelsanalysen 2025</a> · <a href="https://apps.shopify.com/shipmondo?locale=da" target="_blank" rel="noopener">Shipmondo til Shopify</a></li>
     </ul>
   </footer>
 </main>
@@ -403,47 +580,85 @@ code { font-family: var(--mono); font-size: 0.85em; background: var(--dk-soft); 
 (function () {
   const $ = (id) => document.getElementById(id);
   const nf = new Intl.NumberFormat("da-DK", { maximumFractionDigits: 0 });
-  const DKK_PER_EUR = 7.46;
-  const kr = (v) => nf.format(Math.round(v)) + " kr.";
-  function update() {
-    const sale = +$("sale").value, cost = +$("cost").value, ship = +$("ship").value, ads = +$("ads").value;
-    const duty = $("nonEu").checked ? 3 * DKK_PER_EUR : 0;
-    const exvat = sale / 1.25;
-    const fee = sale * 0.02;
-    const before = exvat - cost - ship - duty - fee;
-    const profit = before - ads;
-    $("saleOut").value = kr(sale); $("costOut").value = kr(cost); $("shipOut").value = kr(ship); $("adsOut").value = kr(ads);
-    $("exvat").textContent = kr(exvat);
-    $("rCost").textContent = "−" + kr(cost);
-    $("rShip").textContent = "−" + kr(ship);
-    $("rDuty").textContent = duty ? "−" + kr(duty) : "0 kr.";
-    $("rFee").textContent = "−" + kr(fee);
-    $("rAds").textContent = "−" + kr(ads);
-    $("margin").textContent = Math.round(profit / exvat * 100) + " %";
-    const p = $("profit");
-    p.textContent = (profit >= 0 ? "+" : "−") + kr(Math.abs(profit));
-    p.className = "big " + (profit >= 0 ? "pos" : "neg");
-    $("maxAds").textContent = before > 0
-      ? "Du går i nul, hvis et salg koster " + kr(before) + " i annoncer. Bliver det dyrere, så stop annoncen."
-      : "Du taber penge, før du overhovedet har betalt for annoncer. Hæv prisen eller find en billigere leverandør.";
-  }
-  ["sale", "cost", "ship", "ads", "nonEu"].forEach((id) => $(id).addEventListener("input", update));
-  update();
+  const kr = (v) => (v < 0 ? "−" : "") + nf.format(Math.abs(Math.round(v))) + " kr.";
 
-  document.querySelectorAll("[data-copy]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const text = btn.getAttribute("data-copy");
-      const done = () => { btn.textContent = "Kopieret"; setTimeout(() => (btn.textContent = "Kopiér tekst"), 1500); };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done).catch(() => select(btn));
-      } else { select(btn); }
-    });
-  });
-  function select(btn) {
-    const p = btn.parentElement.querySelector("p");
-    const r = document.createRange(); r.selectNodeContents(p);
-    const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
-    btn.textContent = "Markeret – tryk Ctrl+C";
+  // Product score
+  const crit = Array.from(document.querySelectorAll("#crit input"));
+  function score() {
+    const s = crit.filter((c) => c.checked).length;
+    $("pScore").textContent = s + " / 10";
+    $("pLabel").textContent = "Score · " + ($("pName").value.trim() || "dit produkt");
+    const v = $("pVerdict");
+    if (s >= 9) { v.className = "verdict good"; v.textContent = "Stærk kandidat. Bestil samples fra 3 leverandører."; }
+    else if (s >= 7) { v.className = "verdict warn"; v.textContent = "Måske. Kan du løse de punkter, der mangler hak? Ellers vælg en anden idé."; }
+    else { v.className = "verdict bad"; v.textContent = "Drop den. For stor risiko for at tabe penge."; }
   }
+  crit.forEach((c) => c.addEventListener("change", score));
+  $("pName").addEventListener("input", score);
+  score();
+
+  // Budget + monthly profit
+  const bIds = ["bUnits", "bUnit", "bSamples", "bSetup", "bLegal", "bPack", "bContent", "bAds", "bBuffer"];
+  const pIds = ["price", "landed", "fulfil", "cpa", "cust", "rep", "fixed"];
+  const n = (id) => Math.max(0, parseFloat($(id).value) || 0);
+  function calc() {
+    const stock = n("bUnits") * n("bUnit");
+    const rest = bIds.slice(2).reduce((a, id) => a + n(id), 0);
+    $("bTotal").textContent = kr(stock + rest);
+    $("bStock").textContent = kr(stock);
+    $("bRest").textContent = kr(rest);
+    $("bValue").textContent = kr(n("bUnits") * n("price"));
+
+    const price = n("price"), landed = n("landed"), fulfil = n("fulfil"), cpa = n("cpa"), cust = n("cust"), rep = n("rep"), fixed = n("fixed");
+    $("priceOut").value = kr(price); $("landedOut").value = kr(landed); $("fulfilOut").value = kr(fulfil);
+    $("cpaOut").value = kr(cpa); $("custOut").value = nf.format(cust); $("repOut").value = rep; $("fixedOut").value = kr(fixed);
+
+    const exvat = price / 1.25;
+    const fee = price * 0.02;
+    const contrib = exvat - landed - fulfil - fee;
+    const first = contrib - cpa;
+    const repeats = cust * rep / 100;
+    const profit = cust * first + repeats * contrib - fixed;
+    const gm = exvat > 0 ? (exvat - landed) / exvat * 100 : 0;
+
+    const p = $("mProfit");
+    p.textContent = (profit >= 0 ? "+" : "") + kr(profit);
+    p.className = "big " + (profit >= 0 ? "pos" : "neg");
+    $("mRev").textContent = kr((cust + repeats) * price);
+    $("mGm").textContent = Math.round(gm) + " %";
+    $("mContrib").textContent = kr(contrib);
+    $("mFirst").textContent = kr(first);
+    $("mAds").textContent = kr(cust * cpa);
+    $("mMax").textContent = contrib > 0 ? kr(contrib) : "Ingen – du taber før annoncer";
+    $("mRoas").textContent = contrib > 0 ? (price / contrib).toFixed(2).replace(".", ",") : "–";
+
+    const v = $("mVerdict");
+    if (contrib <= 0) { v.className = "verdict bad"; v.textContent = "Du taber penge på hver ordre, selv uden annoncer. Hæv prisen eller find billigere indkøb."; }
+    else if (gm < 60) { v.className = "verdict warn"; v.textContent = "Bruttomarginen er under 60 %. Det bliver svært at betale for annoncer. Sigt efter 65–75 %."; }
+    else if (profit < 0) { v.className = "verdict warn"; v.textContent = "Produktet er sundt, men annoncerne er for dyre lige nu. Lav bedre videoer, hæv kurvstørrelsen med bundles, eller få flere genkøb."; }
+    else { v.className = "verdict good"; v.textContent = "Regnestykket går op. Hold CPA under din Max CPA og skalér langsomt."; }
+  }
+  bIds.concat(pIds).forEach((id) => $(id).addEventListener("input", calc));
+  calc();
+
+  // 90-day checklist (per-viewer, saved in this browser only)
+  const KEY = "ecom-plan-v1";
+  const boxes = Array.from(document.querySelectorAll("#phases input[data-k]"));
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { saved = {}; }
+  boxes.forEach((b) => { b.checked = !!saved[b.dataset.k]; });
+  function prog() {
+    const done = boxes.filter((b) => b.checked).length;
+    $("bar").style.width = (done / boxes.length * 100) + "%";
+    $("progText").textContent = done + " af " + boxes.length + " punkter færdige";
+  }
+  function save() {
+    const o = {}; boxes.forEach((b) => { if (b.checked) o[b.dataset.k] = 1; });
+    try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) {}
+    prog();
+  }
+  boxes.forEach((b) => b.addEventListener("change", save));
+  $("reset").addEventListener("click", () => { boxes.forEach((b) => (b.checked = false)); save(); });
+  prog();
 })();
 </script>
