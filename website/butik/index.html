@@ -1,323 +1,287 @@
 <title>Lyspote Butik</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: a storefront for a dog-walk brand built around the dark Danish winter.
-   Committed single "night walk" look: deep evening blue ground, reflective amber as the one bold accent,
-   diagonal reflective-tape stripes as the brand motif. Sections mirror Shopify Dawn sections 1:1. */
+/* Layout: a plain, standard webshop (Shopify Dawn style). White background, black text and buttons,
+   one font, centered hero, product grid, simple footer. Single light look on purpose. */
 :root {
-  --night: #0e1a2b;
-  --night-2: #15243a;
-  --night-3: #1d3150;
-  --paper: #eef1f5;
-  --muted: #9fb0c6;
-  --reflex: #f4b740;
-  --reflex-ink: #1a1305;
-  --line: #2a3f5f;
-  --display: "Bricolage Grotesque", "Arial Black", Arial, sans-serif;
-  --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  color-scheme: dark;
+  --bg: #ffffff;
+  --soft: #f5f5f5;
+  --fg: #121212;
+  --muted: #6b6b6b;
+  --line: #e6e6e6;
+  --btn: #121212;
+  --btn-fg: #ffffff;
+  --sale: #c8102e;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  color-scheme: light;
 }
 * { box-sizing: border-box; }
-body { background: var(--night); color: var(--paper); font-family: var(--body); font-size: 16px; line-height: 1.55; }
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 20; background: var(--night); }
-.in { max-width: 1160px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.05; text-wrap: balance; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 16px; line-height: 1.6; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); }
+.in { max-width: 1200px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { margin: 0; line-height: 1.2; font-weight: 700; text-wrap: balance; }
 p { margin: 0; }
-a { color: var(--reflex); }
+a { color: inherit; }
 button { font: inherit; cursor: pointer; }
-:focus-visible { outline: 3px solid var(--reflex); outline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
 
-.preview { background: var(--reflex); color: var(--reflex-ink); font-size: 0.82rem; font-weight: 600; text-align: center; }
-.preview .in { padding-block: 6px; }
-.announce { background: var(--night-2); border-bottom: 1px solid var(--line); font-size: 0.82rem; color: var(--muted); }
-.announce .in { padding-block: 8px; display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
-.announce b { color: var(--paper); font-weight: 600; }
+.note { background: #fff6d6; color: #5a4500; font-size: 0.8rem; text-align: center; }
+.note .in { padding-block: 6px; }
+.announce { background: var(--fg); color: #fff; font-size: 0.82rem; text-align: center; }
+.announce .in { padding-block: 9px; }
 
-header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--night); border-bottom: 1px solid var(--line); }
-header.top .in { padding-block: 14px; display: flex; align-items: center; gap: 24px; }
-.logo { font-family: var(--display); font-weight: 800; font-size: 1.5rem; letter-spacing: 0.04em; color: var(--paper); text-decoration: none; display: flex; align-items: center; gap: 8px; }
-.logo svg { width: 26px; height: 26px; }
-nav.menu { display: flex; gap: 20px; font-size: 0.92rem; flex: 1; }
-nav.menu a { color: var(--muted); text-decoration: none; }
-nav.menu a:hover { color: var(--paper); }
-.cartbtn { margin-left: auto; background: none; border: 1px solid var(--line); color: var(--paper); border-radius: 999px; padding: 7px 14px; font-size: 0.9rem; display: flex; gap: 8px; align-items: center; }
-.cartbtn span { background: var(--reflex); color: var(--reflex-ink); border-radius: 999px; min-width: 22px; padding: 0 6px; font-weight: 700; font-size: 0.78rem; text-align: center; }
-@media (max-width: 720px) { nav.menu { display: none; } }
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); border-bottom: 1px solid var(--line); }
+header.top .in { padding-block: 16px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; }
+nav.menu { display: flex; gap: 20px; font-size: 0.92rem; }
+nav.menu a { text-decoration: none; color: var(--muted); }
+nav.menu a:hover { color: var(--fg); text-decoration: underline; }
+.logo { font-weight: 700; font-size: 1.35rem; letter-spacing: 0.06em; text-decoration: none; text-align: center; }
+.cartbtn { justify-self: end; background: none; border: 0; display: flex; gap: 6px; align-items: center; font-size: 0.92rem; }
+.cartbtn span { background: var(--fg); color: #fff; border-radius: 999px; min-width: 20px; padding: 0 6px; font-size: 0.75rem; font-weight: 600; text-align: center; }
+@media (max-width: 720px) { nav.menu { display: none; } header.top .in { grid-template-columns: auto 1fr auto; } .logo { text-align: left; } }
 
-.tape { background: repeating-linear-gradient(-45deg, var(--reflex) 0 18px, var(--night) 18px 36px); }
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 13px 28px; background: var(--btn); color: var(--btn-fg); border: 1px solid var(--btn); text-decoration: none; font-weight: 600; font-size: 0.95rem; border-radius: 4px; }
+.btn.outline { background: transparent; color: var(--fg); }
 
-.hero .in { padding-block: 64px 56px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
-@media (max-width: 820px) { .hero .in { grid-template-columns: 1fr; padding-block: 40px; } }
-.hero h1 { font-size: clamp(2.6rem, 7vw, 5rem); font-weight: 800; letter-spacing: -0.02em; }
-.hero h1 em { font-style: normal; color: var(--reflex); }
-.hero p { font-size: 1.15rem; color: var(--muted); max-width: 46ch; margin-top: 18px; }
-.ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 999px; padding: 13px 24px; font-weight: 600; text-decoration: none; border: 2px solid var(--reflex); }
-.btn.solid { background: var(--reflex); color: var(--reflex-ink); }
-.btn.ghost { background: transparent; color: var(--paper); border-color: var(--line); }
-.heroart { position: relative; aspect-ratio: 1; max-width: 100%; border-radius: 20px; overflow: hidden; background: radial-gradient(circle at 70% 25%, #3b5a86 0, var(--night-3) 38%, var(--night-2) 75%); }
-.heroart canvas { width: 100%; height: 100%; display: block; }
-.heroart .badge { position: absolute; left: 16px; bottom: 16px; background: var(--night); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; font-size: 0.85rem; }
-.heroart .badge b { color: var(--reflex); display: block; font-family: var(--display); font-size: 1.1rem; }
+.img { background: var(--soft); display: grid; place-items: center; color: var(--muted); font-size: 0.85rem; position: relative; overflow: hidden; }
+.img svg { width: 40%; height: auto; color: #9a9a9a; }
+.img .ph { position: absolute; bottom: 10px; left: 0; right: 0; text-align: center; font-size: 0.75rem; color: var(--muted); }
 
-.trust { border-block: 1px solid var(--line); background: var(--night-2); }
-.trust .in { padding-block: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px 24px; font-size: 0.9rem; }
-.trust div { display: flex; gap: 10px; align-items: center; color: var(--muted); }
-.trust b { color: var(--paper); font-weight: 600; display: block; }
-.trust svg { width: 22px; height: 22px; flex: none; color: var(--reflex); }
+.hero .in { padding-block: 0; }
+.hero .img { aspect-ratio: 21 / 8; max-width: 100%; margin-top: 24px; border-radius: 6px; }
+.hero .txt { text-align: center; padding-block: 40px 56px; display: grid; gap: 14px; justify-items: center; }
+.hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: -0.01em; }
+.hero p { color: var(--muted); font-size: 1.1rem; max-width: 52ch; }
+.hero .ctas { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+@media (max-width: 720px) { .hero .img { aspect-ratio: 4 / 3; } }
 
-section.blk .in { padding-block: 72px; display: grid; gap: 28px; }
-.sechead { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; }
-.sechead h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; }
-.sechead p { color: var(--muted); max-width: 48ch; }
-.kicker { font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--reflex); font-weight: 600; }
+.usp { border-block: 1px solid var(--line); }
+.usp .in { padding-block: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px 24px; text-align: center; font-size: 0.9rem; }
+.usp b { display: block; }
+.usp span { color: var(--muted); }
 
-.bundle { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: var(--night-2); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
-@media (max-width: 820px) { .bundle { grid-template-columns: 1fr; } }
-.bundle .pic { min-height: 280px; position: relative; }
-.bundle .txt { padding: 32px; display: grid; gap: 14px; align-content: center; }
-.bundle h3 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); }
-.bundle ul { margin: 0; padding-left: 20px; color: var(--muted); }
-.priceline { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-.priceline .now { font-family: var(--display); font-size: 2rem; font-weight: 800; }
-.priceline .save { background: var(--reflex); color: var(--reflex-ink); font-weight: 700; font-size: 0.8rem; padding: 3px 10px; border-radius: 999px; }
-.sizes { display: flex; gap: 8px; flex-wrap: wrap; }
-.sizes button { background: transparent; color: var(--paper); border: 1px solid var(--line); border-radius: 8px; min-width: 48px; padding: 8px 10px; font-weight: 600; }
-.sizes button[aria-pressed="true"] { border-color: var(--reflex); background: var(--night-3); color: var(--reflex); }
+section.blk .in { padding-block: 64px; display: grid; gap: 28px; }
+.head { text-align: center; display: grid; gap: 8px; justify-items: center; }
+.head h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+.head p { color: var(--muted); max-width: 56ch; }
 
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 20px; }
-.card { background: var(--night-2); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
-.card .pic { aspect-ratio: 4 / 3; max-width: 100%; position: relative; }
-.card .body { padding: 16px; display: grid; gap: 8px; align-content: start; }
-.card h3 { font-size: 1.15rem; }
-.card p { color: var(--muted); font-size: 0.9rem; }
-.card .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 6px; }
-.card .price { font-family: var(--display); font-weight: 800; font-size: 1.25rem; font-variant-numeric: tabular-nums; }
-.add { background: var(--reflex); color: var(--reflex-ink); border: 0; border-radius: 999px; padding: 8px 14px; font-weight: 700; font-size: 0.85rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 28px 20px; }
+.card { display: grid; gap: 10px; align-content: start; }
+.card .img { aspect-ratio: 1; max-width: 100%; border-radius: 6px; }
+.card h3 { font-size: 1rem; font-weight: 600; }
+.card .price { font-size: 0.98rem; font-variant-numeric: tabular-nums; }
+.card .price s { color: var(--muted); margin-left: 6px; }
+.sizes { display: flex; gap: 6px; flex-wrap: wrap; }
+.sizes button { background: #fff; border: 1px solid var(--line); border-radius: 4px; min-width: 40px; padding: 5px 8px; font-size: 0.82rem; }
+.sizes button[aria-pressed="true"] { border-color: var(--fg); background: var(--fg); color: #fff; }
+.card .add { width: 100%; background: #fff; color: var(--fg); border: 1px solid var(--fg); border-radius: 4px; padding: 10px; font-weight: 600; font-size: 0.9rem; }
+.card .add:hover { background: var(--fg); color: #fff; }
 
-.pic { background: var(--night-3); display: grid; place-items: center; overflow: hidden; }
-.pic::before { content: ""; position: absolute; inset: auto -10% 18% -10%; height: 22px; transform: rotate(-8deg); background: repeating-linear-gradient(90deg, var(--reflex) 0 30px, transparent 30px 44px); opacity: 0.85; }
-.pic svg { position: relative; width: 46%; height: auto; color: var(--paper); }
-.pic .ph { position: absolute; top: 10px; right: 10px; font-size: 0.7rem; color: var(--muted); background: var(--night); border-radius: 999px; padding: 2px 8px; border: 1px solid var(--line); }
+.feature { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+@media (max-width: 820px) { .feature { grid-template-columns: 1fr; } }
+.feature .img { aspect-ratio: 1; max-width: 100%; border-radius: 6px; }
+.feature .txt { display: grid; gap: 14px; justify-items: start; }
+.feature h2 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); }
+.feature ul { margin: 0; padding-left: 20px; color: var(--muted); }
+.feature .price { font-size: 1.4rem; font-weight: 700; }
+.feature .save { background: var(--sale); color: #fff; font-size: 0.75rem; font-weight: 600; padding: 3px 8px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
 
-.why { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-.why div { border-top: 3px solid var(--reflex); padding-top: 16px; display: grid; gap: 8px; }
-.why h3 { font-size: 1.3rem; }
-.why p { color: var(--muted); }
+.why { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; text-align: center; }
+.why h3 { font-size: 1.05rem; margin-bottom: 6px; }
+.why p { color: var(--muted); font-size: 0.95rem; }
 
-.sizetable { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
-table { border-collapse: collapse; width: 100%; min-width: 480px; font-size: 0.95rem; }
-th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
-th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; background: var(--night-2); }
+.tablebox { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; }
+table { border-collapse: collapse; width: 100%; min-width: 460px; font-size: 0.93rem; }
+th, td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--line); }
+th { background: var(--soft); font-weight: 600; }
 tr:last-child td { border-bottom: 0; }
 
-.reviews { border: 1px dashed var(--line); border-radius: 16px; padding: 28px; display: grid; gap: 8px; color: var(--muted); }
-.reviews h3 { color: var(--paper); }
-
+.faq { max-width: 760px; margin: 0 auto; width: 100%; }
 details { border-bottom: 1px solid var(--line); padding: 16px 0; }
-summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
-summary::after { content: "+"; color: var(--reflex); font-size: 1.3rem; line-height: 1; }
+summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+summary::after { content: "+"; font-size: 1.2rem; line-height: 1; }
 details[open] summary::after { content: "–"; }
-details p { color: var(--muted); margin-top: 10px; max-width: 70ch; }
+details p { color: var(--muted); margin-top: 8px; }
 
-.news { background: var(--night-2); border-block: 1px solid var(--line); }
-.news .in { padding-block: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; }
-@media (max-width: 820px) { .news .in { grid-template-columns: 1fr; } }
-.news form { display: flex; gap: 8px; flex-wrap: wrap; }
-.news input { flex: 1 1 220px; min-width: 0; background: var(--night); border: 1px solid var(--line); color: var(--paper); border-radius: 999px; padding: 12px 18px; font: inherit; }
-.news .ok { color: var(--reflex); font-size: 0.9rem; }
+.news { background: var(--soft); }
+.news .in { padding-block: 56px; text-align: center; display: grid; gap: 12px; justify-items: center; }
+.news h2 { font-size: 1.6rem; }
+.news p { color: var(--muted); }
+.news form { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; width: 100%; max-width: 460px; margin-top: 6px; }
+.news input { flex: 1 1 220px; min-width: 0; border: 1px solid #cfcfcf; background: #fff; border-radius: 4px; padding: 12px 14px; font: inherit; color: var(--fg); }
 
-footer { font-size: 0.88rem; color: var(--muted); }
-footer .in { padding-block: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
-footer h4 { color: var(--paper); margin: 0 0 8px; font-size: 0.95rem; }
+footer { border-top: 1px solid var(--line); font-size: 0.88rem; color: var(--muted); }
+footer .in { padding-block: 44px 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 24px; }
+footer h4 { color: var(--fg); margin: 0 0 8px; font-size: 0.92rem; }
 footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-footer a { color: var(--muted); text-decoration: none; }
-.pay { display: flex; gap: 6px; flex-wrap: wrap; }
-.pay span { border: 1px solid var(--line); border-radius: 6px; padding: 3px 8px; font-size: 0.75rem; color: var(--paper); }
+footer a { text-decoration: none; }
+footer a:hover { text-decoration: underline; color: var(--fg); }
+.pay { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.pay span { border: 1px solid var(--line); border-radius: 4px; padding: 2px 8px; font-size: 0.72rem; color: var(--fg); }
+.copy { border-top: 1px solid var(--line); }
+.copy .in { padding-block: 16px; font-size: 0.8rem; }
 
-.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(380px, 100%); background: var(--night-2); border-left: 1px solid var(--line); z-index: 30; padding: calc(20px + env(safe-area-inset-top, 0px)) max(20px, env(safe-area-inset-right, 0px)) calc(20px + env(safe-area-inset-bottom, 0px)) 20px; display: grid; grid-template-rows: auto 1fr auto; gap: 16px; }
+.scrim { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.35); z-index: 25; }
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(380px, 100%); background: #fff; z-index: 30; padding: calc(20px + env(safe-area-inset-top, 0px)) max(20px, env(safe-area-inset-right, 0px)) calc(20px + env(safe-area-inset-bottom, 0px)) 20px; display: grid; grid-template-rows: auto 1fr auto; gap: 16px; box-shadow: -8px 0 24px rgba(0,0,0,0.08); }
 .drawer header { display: flex; justify-content: space-between; align-items: center; }
-.drawer .x { background: none; border: 1px solid var(--line); color: var(--paper); border-radius: 999px; width: 36px; height: 36px; }
+.drawer .x { background: none; border: 0; font-size: 1.2rem; }
 .lines { overflow-y: auto; display: grid; gap: 12px; align-content: start; }
 .line { display: flex; justify-content: space-between; gap: 12px; font-size: 0.92rem; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
 .line small { color: var(--muted); display: block; }
 .ship { font-size: 0.85rem; color: var(--muted); }
-.shipbar { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; margin-top: 6px; }
-.shipbar div { height: 100%; background: var(--reflex); }
-.total { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem; }
-.scrim { position: fixed; inset: 0; background: rgba(5, 10, 18, 0.6); z-index: 25; }
-@media (prefers-reduced-motion: no-preference) { .drawer { animation: slide .25s ease-out; } @keyframes slide { from { transform: translateX(30px); opacity: .6; } } }
+.shipbar { height: 4px; background: var(--line); border-radius: 999px; overflow: hidden; }
+.shipbar div { height: 100%; background: var(--fg); }
+.total { display: flex; justify-content: space-between; font-weight: 700; }
 </style>
 
-<div class="preview"><div class="in">Forhåndsvisning af din Shopify-butik. Byt eksempeltekster og illustrationer ud med dine egne produktbilleder.</div></div>
-<div class="announce"><div class="in"><span><b>Fri fragt</b> over 499 kr.</span><span><b>Sendes fra Danmark</b> · 1–2 hverdage</span><span><b>MobilePay</b> og kort</span><span><b>30 dages</b> returret</span></div></div>
+<div class="note"><div class="in">Forhåndsvisning. Sådan kan din Shopify-butik se ud med det gratis tema "Dawn".</div></div>
+<div class="announce"><div class="in">Fri fragt ved køb over 499 kr. · Betal med MobilePay · 30 dages returret</div></div>
 
 <header class="top"><div class="in">
-  <a class="logo" href="#top" aria-label="Lyspote forside">
-    <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="20" r="7" fill="#f4b740"/><circle cx="7" cy="11" r="3.4" fill="#f4b740"/><circle cx="13" cy="6.5" r="3.4" fill="#f4b740"/><circle cx="19.5" cy="6.5" r="3.4" fill="#f4b740"/><circle cx="25.5" cy="11" r="3.4" fill="#f4b740"/></svg>
-    LYSPOTE</a>
-  <nav class="menu" aria-label="Menu"><a href="#saet">Mørke-gåtur-sættet</a><a href="#produkter">Alle produkter</a><a href="#str">Størrelser</a><a href="#faq">Spørgsmål</a></nav>
+  <nav class="menu" aria-label="Menu"><a href="#produkter">Shop</a><a href="#saet">Sættet</a><a href="#str">Størrelser</a><a href="#faq">Hjælp</a></nav>
+  <a class="logo" href="#top">LYSPOTE</a>
   <button class="cartbtn" id="cartBtn" type="button" aria-label="Åbn kurv">Kurv <span id="count">0</span></button>
 </div></header>
 
 <main id="top">
   <section class="hero"><div class="in">
-    <div>
-      <span class="kicker">Til de mørke måneder</span>
-      <h1>Gåture i mørket. <em>Uden at være usynlig.</em></h1>
-      <p>Seler, snore og regnjakker med refleks hele vejen rundt. Designet til danske vintre, sendt fra Danmark.</p>
-      <div class="ctas"><a class="btn solid" href="#saet">Se Mørke-gåtur-sættet</a><a class="btn ghost" href="#produkter">Alle produkter</a></div>
+    <div class="img"><svg viewBox="0 0 120 60" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M30 38c8-14 30-16 46-10 8 3 12 8 14 14"/><path d="M42 30v18M72 28v20M28 40l-6 10M88 42l4 8"/><circle cx="96" cy="26" r="7"/></svg><span class="ph">Dit hero-billede: hund på gåtur i mørke med refleks</span></div>
+    <div class="txt">
+      <h1>Bliv set på aftenturen</h1>
+      <p>Seler, snore og regnjakker med refleks hele vejen rundt. Lavet til mørke og regn i Danmark.</p>
+      <div class="ctas"><a class="btn" href="#produkter">Shop nu</a><a class="btn outline" href="#saet">Se sættet</a></div>
     </div>
-    <div class="heroart"><canvas id="night" aria-label="Illustration: en hund med refleks i lyset fra en lygte" role="img"></canvas>
-      <div class="badge"><b>Refleks 360°</b>Synlig fra alle sider</div></div>
   </div></section>
 
-  <div class="trust"><div class="in">
-    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><span><b>Levering på 1–2 dage</b>Til pakkeshop eller døren</span></div>
-    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg><span><b>Betal med MobilePay</b>Eller kort</span></div>
-    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg><span><b>30 dages returret</b>Forkert størrelse? Byt gratis</span></div>
-    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg><span><b>Dansk kundeservice</b>Svar inden for 24 timer</span></div>
+  <div class="usp"><div class="in">
+    <div><b>Fri fragt</b><span>ved køb over 499 kr.</span></div>
+    <div><b>MobilePay</b><span>og alle gængse kort</span></div>
+    <div><b>30 dages returret</b><span>gratis bytte af størrelse</span></div>
+    <div><b>Dansk kundeservice</b><span>svar inden for 24 timer</span></div>
   </div></div>
 
-  <section class="blk" id="saet"><div class="in">
-    <div class="sechead"><div><span class="kicker">Bestseller</span><h2>Mørke-gåtur-sættet</h2></div><p>Sele, snor og regnjakke, der passer sammen. Ét køb, og hunden er klar til hele vinteren.</p></div>
-    <div class="bundle">
-      <div class="pic"><span class="ph">Dit produktfoto</span><svg viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 50c10-18 30-24 50-20s26 8 30 18"/><path d="M38 34v24M70 30v28"/><path d="M98 48l12 6"/><path d="M110 54c-2 10-12 16-26 14"/></svg></div>
+  <section class="blk" id="produkter"><div class="in">
+    <div class="head"><h2>Bestsellere</h2><p>Udstyr til gåture i mørke og regn.</p></div>
+    <div class="grid" id="grid"></div>
+  </div></section>
+
+  <section class="blk" id="saet" style="background:var(--soft)"><div class="in">
+    <div class="feature">
+      <div class="img"><svg viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M20 50c10-18 30-24 50-20s26 8 30 18"/><path d="M38 34v24M70 30v28"/><path d="M98 48l12 6"/></svg><span class="ph">Billede af sele, snor og regnjakke sammen</span></div>
       <div class="txt">
-        <h3>Sele + snor + regnjakke</h3>
-        <ul><li>Trækfri refleks-sele</li><li>Vandtæt regnjakke med refleks og hul til selen</li><li>Refleks-snor 1,5 m med polstret håndtag</li></ul>
-        <div class="priceline"><span class="now">899 kr.</span><span class="save">Spar 198 kr.</span></div>
-        <div><span class="kicker" style="color:var(--muted)">Størrelse</span>
-          <div class="sizes" id="bundleSizes" role="group" aria-label="Vælg størrelse">
-            <button type="button" aria-pressed="false">S</button><button type="button" aria-pressed="true">M</button><button type="button" aria-pressed="false">L</button><button type="button" aria-pressed="false">XL</button>
-          </div></div>
-        <div class="ctas" style="margin-top:4px"><button class="btn solid" type="button" id="addBundle">Læg i kurv</button><a class="btn ghost" href="#str">Find størrelsen</a></div>
+        <h2>Mørke-gåtur-sættet</h2>
+        <p style="color:var(--muted)">Alt hunden skal bruge til vinteren i én pakke.</p>
+        <ul><li>Trækfri refleks-sele</li><li>Vandtæt regnjakke med refleks</li><li>Refleks-snor 1,5 m</li></ul>
+        <div><span class="price">899 kr.</span><span class="save">Spar 198 kr.</span></div>
+        <div class="sizes" id="bundleSizes" role="group" aria-label="Vælg størrelse"><button type="button" aria-pressed="false">S</button><button type="button" aria-pressed="true">M</button><button type="button" aria-pressed="false">L</button><button type="button" aria-pressed="false">XL</button></div>
+        <button class="btn" type="button" id="addBundle">Læg i kurv</button>
       </div>
     </div>
   </div></section>
 
-  <section class="blk" id="produkter" style="background:var(--night-2);border-block:1px solid var(--line)"><div class="in">
-    <div class="sechead"><div><span class="kicker">Kollektionen</span><h2>Alle produkter</h2></div><p>Få produkter, der er valgt med omhu. Alt er testet på danske gåture i regn og mørke.</p></div>
-    <div class="grid" id="grid"></div>
-  </div></section>
-
   <section class="blk"><div class="in">
-    <div class="sechead"><div><span class="kicker">Hvorfor Lyspote</span><h2>Lavet til november i Danmark</h2></div></div>
     <div class="why">
-      <div><h3>Synlig fra alle sider</h3><p>Refleks på bryst, ryg og sider. En bilist ser hunden, uanset hvor den drejer hen.</p></div>
-      <div><h3>Tørt og varmt</h3><p>Vandtæt regnjakke med hul til selen, så du ikke skal vælge mellem tør hund og god kontrol.</p></div>
-      <div><h3>Fra Danmark, ikke fra Kina</h3><p>Vi har varerne på lager her. Bestil i dag, og hunden har dem på i overmorgen.</p></div>
+      <div><h3>Refleks hele vejen rundt</h3><p>Bilister ser hunden forfra, bagfra og fra siden.</p></div>
+      <div><h3>Tør hund, god kontrol</h3><p>Regnjakken har hul til selen, så snoren sidder fast det rigtige sted.</p></div>
+      <div><h3>Let at bytte</h3><p>Passer størrelsen ikke, bytter vi gratis inden for 30 dage.</p></div>
     </div>
   </div></section>
 
-  <section class="blk" id="str" style="background:var(--night-2);border-block:1px solid var(--line)"><div class="in">
-    <div class="sechead"><div><span class="kicker">Størrelsesguide</span><h2>Find den rigtige størrelse</h2></div><p>Mål om brystkassen lige bag forbenene med et målebånd. Ligger hunden mellem to størrelser, så vælg den største.</p></div>
-    <div class="sizetable"><table>
-      <thead><tr><th>Størrelse</th><th>Brystmål</th><th>Ryglængde (jakke)</th><th>Typiske racer</th></tr></thead>
+  <section class="blk" id="str" style="background:var(--soft)"><div class="in">
+    <div class="head"><h2>Størrelsesguide</h2><p>Mål om brystkassen lige bag forbenene. Ligger hunden mellem to størrelser, så vælg den største.</p></div>
+    <div class="tablebox"><table>
+      <thead><tr><th>Størrelse</th><th>Brystmål</th><th>Ryglængde</th><th>Fx</th></tr></thead>
       <tbody>
-        <tr><td>S</td><td>35–50 cm</td><td>25–32 cm</td><td>Chihuahua, Bichon havanais, Gravhund</td></tr>
-        <tr><td>M</td><td>45–65 cm</td><td>33–42 cm</td><td>Cocker spaniel, Beagle, Border terrier</td></tr>
-        <tr><td>L</td><td>60–80 cm</td><td>43–55 cm</td><td>Border collie, Labrador (lille), Vizsla</td></tr>
-        <tr><td>XL</td><td>75–100 cm</td><td>56–70 cm</td><td>Labrador, Golden retriever, Schæfer</td></tr>
+        <tr><td>S</td><td>35–50 cm</td><td>25–32 cm</td><td>Chihuahua, Bichon havanais</td></tr>
+        <tr><td>M</td><td>45–65 cm</td><td>33–42 cm</td><td>Cocker spaniel, Beagle</td></tr>
+        <tr><td>L</td><td>60–80 cm</td><td>43–55 cm</td><td>Border collie, Vizsla</td></tr>
+        <tr><td>XL</td><td>75–100 cm</td><td>56–70 cm</td><td>Labrador, Golden retriever</td></tr>
       </tbody></table></div>
   </div></section>
 
-  <section class="blk"><div class="in">
-    <div class="reviews"><span class="kicker">Anmeldelser</span><h3>Her kommer dine kunders anmeldelser</h3><p>Brug en anmeldelses-app i Shopify (fx Judge.me) og Trustpilot. Vis kun ægte anmeldelser fra rigtige kunder. Falske anmeldelser er ulovlige.</p></div>
-  </div></section>
-
   <section class="blk" id="faq"><div class="in">
-    <div class="sechead"><div><span class="kicker">Spørgsmål</span><h2>Ofte stillede spørgsmål</h2></div></div>
-    <div>
-      <details><summary>Hvor hurtigt får jeg min pakke?</summary><p>Bestiller du på en hverdag før kl. 14, sender vi samme dag. Pakken er normalt fremme i 1–2 hverdage med GLS eller PostNord.</p></details>
-      <details><summary>Hvad koster fragt?</summary><p>Fragt til pakkeshop koster 39 kr. Ved køb over 499 kr. er fragten gratis.</p></details>
-      <details><summary>Hvad hvis størrelsen ikke passer?</summary><p>Du har 30 dages returret. Skriv til os, så bytter vi til en anden størrelse uden ekstra omkostninger.</p></details>
-      <details><summary>Kan jeg vaske produkterne?</summary><p>Ja. Selen og snoren vaskes i hånden. Regnjakken og snusemåtten kan vaskes ved 30 grader. Lad alt lufttørre.</p></details>
-      <details><summary>Hvordan betaler jeg?</summary><p>Med MobilePay, Visa/Dankort eller Mastercard. Betalingen er krypteret og sikker.</p></details>
+    <div class="head"><h2>Ofte stillede spørgsmål</h2></div>
+    <div class="faq">
+      <details><summary>Hvornår får jeg min pakke?</summary><p>[Skriv din rigtige leveringstid her. Den skal passe til, hvor varerne sendes fra.]</p></details>
+      <details><summary>Hvad koster fragt?</summary><p>Fragt koster 39 kr. Ved køb over 499 kr. er fragten gratis.</p></details>
+      <details><summary>Hvad hvis størrelsen ikke passer?</summary><p>Du har 30 dages returret. Skriv til os, så bytter vi til en anden størrelse.</p></details>
+      <details><summary>Hvordan betaler jeg?</summary><p>Med MobilePay, Dankort, Visa eller Mastercard.</p></details>
     </div>
   </div></section>
 
   <div class="news"><div class="in">
-    <div><span class="kicker">Nyhedsbrev</span><h2 style="font-size:clamp(1.6rem,3.5vw,2.2rem);margin-top:6px">Få 10 % rabat på din første ordre</h2><p style="color:var(--muted);margin-top:8px">Plus gode råd til gåture i mørke og regn. Afmeld når som helst.</p></div>
-    <form id="newsForm"><label for="email" class="kicker" style="flex-basis:100%;color:var(--muted)">E-mail</label><input id="email" type="email" required placeholder="din@email.dk" autocomplete="email"><button class="btn solid" type="submit">Tilmeld</button><p class="ok" id="newsOk" hidden>Tak! I din rigtige butik sender Klaviyo nu en rabatkode.</p></form>
+    <h2>Få 10 % rabat</h2>
+    <p>Tilmeld dig nyhedsbrevet og få rabat på din første ordre.</p>
+    <form id="newsForm"><label for="email" style="position:absolute;left:-9999px">E-mail</label><input id="email" type="email" required placeholder="E-mail" autocomplete="email"><button class="btn" type="submit">Tilmeld</button></form>
+    <p id="newsOk" hidden>Tak for din tilmelding.</p>
   </div></div>
 </main>
 
-<footer><div class="in">
-  <div><a class="logo" href="#top" style="font-size:1.2rem">LYSPOTE</a><p style="margin-top:8px">Udstyr til gåture i mørke og regn. Sendt fra Danmark.</p></div>
-  <div><h4>Kundeservice</h4><ul><li><a href="#faq">Levering og fragt</a></li><li><a href="#faq">Returnering og bytte</a></li><li><a href="#str">Størrelsesguide</a></li><li><a href="#faq">Kontakt</a></li></ul></div>
-  <div><h4>Om butikken</h4><ul><li><a href="#top">Om Lyspote</a></li><li><a href="#top">Handelsbetingelser</a></li><li><a href="#top">Privatlivspolitik</a></li><li><a href="#top">Cookiepolitik</a></li></ul></div>
-  <div><h4>Virksomhed</h4><p>[Dit firmanavn]<br>[Adresse]<br>CVR: [dit CVR-nummer]<br>[kontakt@dit-domæne.dk]</p><div class="pay" style="margin-top:10px"><span>MobilePay</span><span>Dankort</span><span>Visa</span><span>Mastercard</span></div></div>
-</div></footer>
+<footer>
+  <div class="in">
+    <div><h4>LYSPOTE</h4><p>Udstyr til gåture i mørke og regn.</p></div>
+    <div><h4>Hjælp</h4><ul><li><a href="#faq">Levering</a></li><li><a href="#faq">Returnering</a></li><li><a href="#str">Størrelsesguide</a></li><li><a href="#faq">Kontakt</a></li></ul></div>
+    <div><h4>Information</h4><ul><li><a href="#top">Om os</a></li><li><a href="#top">Handelsbetingelser</a></li><li><a href="#top">Privatlivspolitik</a></li><li><a href="#top">Cookies</a></li></ul></div>
+    <div><h4>Kontakt</h4><p>[Firmanavn]<br>[Adresse]<br>CVR: [nummer]<br>[e-mail]</p><div class="pay"><span>MobilePay</span><span>Dankort</span><span>Visa</span><span>Mastercard</span></div></div>
+  </div>
+  <div class="copy"><div class="in">© 2026 Lyspote</div></div>
+</footer>
 
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" hidden aria-label="Kurv">
-  <header><h3>Din kurv</h3><button class="x" id="closeCart" type="button" aria-label="Luk kurv">✕</button></header>
+  <header><h3>Kurv</h3><button class="x" id="closeCart" type="button" aria-label="Luk kurv">✕</button></header>
   <div class="lines" id="lines"></div>
-  <div style="display:grid;gap:12px">
+  <div style="display:grid;gap:10px">
     <div class="ship" id="shipText"></div><div class="shipbar"><div id="shipBar" style="width:0"></div></div>
     <div class="total"><span>I alt inkl. fragt og moms</span><span id="total">0 kr.</span></div>
-    <button class="btn solid" type="button" id="checkout">Gå til betaling</button>
-    <p class="ship" id="checkoutNote" hidden>I din rigtige Shopify-butik sender denne knap kunden til betaling.</p>
+    <button class="btn" type="button" id="checkout">Gå til kassen</button>
+    <p class="ship" id="checkoutNote" hidden>I din rigtige Shopify-butik går kunden nu til betaling.</p>
   </div>
 </aside>
 
 <script>
 (function () {
   const products = [
-    { id: "sele", name: "Refleks-sele – trækfri", text: "Refleks hele vejen rundt og trækfri ring på brystet.", price: 399, sizes: ["S","M","L","XL"], icon: '<path d="M30 40c12-14 48-14 60 0"/><path d="M30 40v14c20 10 40 10 60 0V40"/><path d="M60 26v-8"/><circle cx="60" cy="15" r="4"/>' },
-    { id: "jakke", name: "Regnjakke med refleks", text: "Vandtæt, med hul til selen og brede reflekskanter.", price: 449, sizes: ["S","M","L","XL"], icon: '<path d="M22 30h76l-8 30H30z"/><path d="M50 30v-6h20v6"/><path d="M30 45h60"/>' },
-    { id: "snor", name: "Refleks-snor 1,5 m", text: "Polstret håndtag og refleks i hele længden.", price: 249, sizes: ["Sort","Orange"], icon: '<path d="M20 20c0-8 20-8 20 0s-10 10-10 10"/><path d="M30 30c10 20 40 20 60 20"/><path d="M90 50h10"/><circle cx="104" cy="50" r="4"/>' },
-    { id: "bil", name: "Vandtæt bilsædebetræk", text: "Beskytter bagsædet mod mudder, vand og hår.", price: 549, sizes: [], icon: '<path d="M20 60V28c0-6 4-10 10-10h60c6 0 10 4 10 10v32"/><path d="M14 60h92"/><path d="M40 18v42M80 18v42"/>' },
-    { id: "snuse", name: "Snusemåtte", text: "Aktivering på regnvejrsdage. Gem godbidder i strimlerne.", price: 299, sizes: [], icon: '<rect x="22" y="20" width="76" height="44" rx="10"/><path d="M34 32l6 6M50 30l4 8M66 32l4 6M82 30l-4 8M40 50l6 4M60 48l2 8M78 50l-4 6"/>' }
+    { id: "sele", name: "Refleks-sele – trækfri", price: 399, sizes: ["S","M","L","XL"], icon: '<path d="M30 40c12-14 48-14 60 0"/><path d="M30 40v14c20 10 40 10 60 0V40"/><circle cx="60" cy="15" r="4"/>' },
+    { id: "jakke", name: "Regnjakke med refleks", price: 449, sizes: ["S","M","L","XL"], icon: '<path d="M22 30h76l-8 30H30z"/><path d="M50 30v-6h20v6"/><path d="M30 45h60"/>' },
+    { id: "snor", name: "Refleks-snor 1,5 m", price: 249, sizes: ["Sort","Orange"], icon: '<path d="M20 20c0-8 20-8 20 0s-10 10-10 10"/><path d="M30 30c10 20 40 20 60 20"/><circle cx="96" cy="50" r="4"/>' },
+    { id: "bil", name: "Vandtæt bilsædebetræk", price: 549, sizes: [], icon: '<path d="M20 60V28c0-6 4-10 10-10h60c6 0 10 4 10 10v32"/><path d="M14 60h92"/>' },
+    { id: "snuse", name: "Snusemåtte", price: 299, sizes: [], icon: '<rect x="22" y="20" width="76" height="44" rx="10"/><path d="M34 32l6 6M50 30l4 8M66 32l4 6M82 30l-4 8"/>' }
   ];
   const kr = (n) => new Intl.NumberFormat("da-DK").format(n) + " kr.";
-  const FREE = 499, SHIP = 39;
-  const cart = [];
+  const FREE = 499, SHIP = 39, cart = [];
   const $ = (id) => document.getElementById(id);
 
-  // product grid
   $("grid").innerHTML = products.map((p) => `
     <article class="card">
-      <div class="pic"><span class="ph">Dit produktfoto</span><svg viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p.icon}</svg></div>
-      <div class="body"><h3>${p.name}</h3><p>${p.text}</p>
-        ${p.sizes.length ? `<div class="sizes" data-for="${p.id}" role="group" aria-label="Vælg variant">${p.sizes.map((s, i) => `<button type="button" aria-pressed="${i === 0}">${s}</button>`).join("")}</div>` : ""}
-        <div class="row"><span class="price">${kr(p.price)}</span><button class="add" type="button" data-add="${p.id}">Læg i kurv</button></div>
-      </div>
+      <div class="img"><svg viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p.icon}</svg><span class="ph">Produktbillede</span></div>
+      <h3>${p.name}</h3>
+      <div class="price">${kr(p.price)}</div>
+      ${p.sizes.length ? `<div class="sizes" data-for="${p.id}" role="group" aria-label="Vælg variant">${p.sizes.map((s, i) => `<button type="button" aria-pressed="${i === 0}">${s}</button>`).join("")}</div>` : ""}
+      <button class="add" type="button" data-add="${p.id}">Læg i kurv</button>
     </article>`).join("");
 
-  // size pickers
   document.addEventListener("click", (e) => {
-    const b = e.target.closest(".sizes button");
-    if (!b) return;
-    b.parentElement.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    const s = e.target.closest(".sizes button");
+    if (s) s.parentElement.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === s)));
+    const a = e.target.closest("[data-add]");
+    if (a) { const p = products.find((x) => x.id === a.dataset.add); add(p.name, picked(document.querySelector(`.sizes[data-for="${p.id}"]`)), p.price); }
   });
   const picked = (el) => { const b = el && el.querySelector('[aria-pressed="true"]'); return b ? b.textContent : ""; };
-
-  document.addEventListener("click", (e) => {
-    const b = e.target.closest("[data-add]");
-    if (!b) return;
-    const p = products.find((x) => x.id === b.dataset.add);
-    add(p.name, picked(document.querySelector(`.sizes[data-for="${p.id}"]`)), p.price);
-    b.textContent = "Lagt i kurv ✓"; setTimeout(() => (b.textContent = "Læg i kurv"), 1200);
-  });
   $("addBundle").addEventListener("click", () => add("Mørke-gåtur-sættet", picked($("bundleSizes")), 899));
 
   function add(name, variant, price) {
-    const key = name + "|" + variant;
-    const line = cart.find((l) => l.key === key);
-    if (line) line.qty++; else cart.push({ key, name, variant, price, qty: 1 });
+    const key = name + "|" + variant, l = cart.find((x) => x.key === key);
+    if (l) l.qty++; else cart.push({ key, name, variant, price, qty: 1 });
     render(); open();
   }
   function render() {
-    const qty = cart.reduce((a, l) => a + l.qty, 0);
-    const sub = cart.reduce((a, l) => a + l.qty * l.price, 0);
+    const qty = cart.reduce((a, l) => a + l.qty, 0), sub = cart.reduce((a, l) => a + l.qty * l.price, 0), free = sub >= FREE;
     $("count").textContent = qty;
-    $("lines").innerHTML = cart.length ? cart.map((l) => `<div class="line"><div>${l.name}<small>${l.variant ? l.variant + " · " : ""}${l.qty} stk.</small></div><span>${kr(l.qty * l.price)}</span></div>`).join("") : '<p class="ship">Kurven er tom.</p>';
-    const free = sub >= FREE;
-    $("shipText").textContent = sub === 0 ? "Fri fragt ved køb over 499 kr." : free ? "Du har fri fragt." : "Køb for " + kr(FREE - sub) + " mere, og få fri fragt.";
+    $("lines").innerHTML = cart.length ? cart.map((l) => `<div class="line"><div>${l.name}<small>${l.variant ? l.variant + " · " : ""}${l.qty} stk.</small></div><span>${kr(l.qty * l.price)}</span></div>`).join("") : '<p class="ship">Din kurv er tom.</p>';
+    $("shipText").textContent = sub === 0 ? "Fri fragt ved køb over 499 kr." : free ? "Du har fri fragt." : "Køb for " + kr(FREE - sub) + " mere for fri fragt.";
     $("shipBar").style.width = Math.min(100, sub / FREE * 100) + "%";
     $("total").textContent = kr(sub + (sub > 0 && !free ? SHIP : 0));
   }
@@ -330,49 +294,5 @@ footer a { color: var(--muted); text-decoration: none; }
   $("checkout").addEventListener("click", () => { $("checkoutNote").hidden = false; });
   $("newsForm").addEventListener("submit", (e) => { e.preventDefault(); $("newsOk").hidden = false; });
   render();
-
-  // hero illustration: night street, lamp cone, dog silhouette with reflective tape
-  const c = $("night");
-  function draw() {
-    const r = c.getBoundingClientRect(), d = window.devicePixelRatio || 1;
-    c.width = r.width * d; c.height = r.height * d;
-    const g = c.getContext("2d"); g.scale(d, d);
-    const w = r.width, h = r.height;
-    g.clearRect(0, 0, w, h);
-    // stars
-    let s = 7; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
-    g.fillStyle = "rgba(238,241,245,0.6)";
-    for (let i = 0; i < 40; i++) { g.fillRect(rnd() * w, rnd() * h * 0.45, 1.5, 1.5); }
-    // lamp post + light cone
-    g.strokeStyle = "#2a3f5f"; g.lineWidth = w * 0.018;
-    g.beginPath(); g.moveTo(w * 0.78, h); g.lineTo(w * 0.78, h * 0.18); g.lineTo(w * 0.66, h * 0.18); g.stroke();
-    const cone = g.createLinearGradient(0, h * 0.2, 0, h);
-    cone.addColorStop(0, "rgba(244,183,64,0.35)"); cone.addColorStop(1, "rgba(244,183,64,0.02)");
-    g.fillStyle = cone;
-    g.beginPath(); g.moveTo(w * 0.63, h * 0.2); g.lineTo(w * 0.69, h * 0.2); g.lineTo(w * 0.98, h * 0.86); g.lineTo(w * 0.2, h * 0.86); g.closePath(); g.fill();
-    g.fillStyle = "#f4b740"; g.beginPath(); g.arc(w * 0.66, h * 0.205, w * 0.02, 0, Math.PI * 2); g.fill();
-    // ground
-    g.fillStyle = "#0e1a2b"; g.fillRect(0, h * 0.86, w, h * 0.14);
-    // dog silhouette
-    const x = w * 0.3, y = h * 0.62, u = w / 100;
-    g.fillStyle = "#0b1422";
-    g.beginPath(); g.ellipse(x + 18 * u, y, 18 * u, 8 * u, 0, 0, Math.PI * 2); g.fill();          // body
-    g.beginPath(); g.ellipse(x + 38 * u, y - 9 * u, 7 * u, 6 * u, -0.3, 0, Math.PI * 2); g.fill(); // head
-    g.beginPath(); g.moveTo(x + 41 * u, y - 13 * u); g.lineTo(x + 46 * u, y - 20 * u); g.lineTo(x + 43 * u, y - 10 * u); g.fill(); // ear
-    g.beginPath(); g.ellipse(x + 45 * u, y - 7 * u, 4 * u, 2.6 * u, 0.1, 0, Math.PI * 2); g.fill(); // snout
-    g.lineWidth = 3.4 * u; g.lineCap = "round"; g.strokeStyle = "#0b1422";
-    [[4, 6, 2, 24], [10, 7, 9, 24], [28, 6, 30, 24], [33, 5, 36, 24]].forEach(([a, b, c2, d2]) => { g.beginPath(); g.moveTo(x + a * u, y + b * u); g.lineTo(x + c2 * u, y + d2 * u); g.stroke(); });
-    g.beginPath(); g.moveTo(x + 1 * u, y - 3 * u); g.quadraticCurveTo(x - 8 * u, y - 10 * u, x - 6 * u, y - 18 * u); g.stroke(); // tail
-    // reflective harness + leash
-    g.strokeStyle = "#f4b740"; g.lineWidth = 2.6 * u;
-    g.beginPath(); g.moveTo(x + 26 * u, y - 7 * u); g.lineTo(x + 26 * u, y + 7 * u); g.stroke();
-    g.beginPath(); g.moveTo(x + 31 * u, y - 6 * u); g.lineTo(x + 32 * u, y + 5 * u); g.stroke();
-    g.beginPath(); g.moveTo(x + 8 * u, y - 6 * u); g.lineTo(x + 26 * u, y - 7 * u); g.stroke();
-    g.lineWidth = 1.2 * u; g.setLineDash([3 * u, 2 * u]);
-    g.beginPath(); g.moveTo(x + 22 * u, y - 7 * u); g.quadraticCurveTo(x + 10 * u, y - 30 * u, x - 14 * u, y - 34 * u); g.stroke();
-    g.setLineDash([]);
-  }
-  draw();
-  if ("ResizeObserver" in window) new ResizeObserver(draw).observe(c);
 })();
 </script>
